@@ -1,13 +1,16 @@
 <script setup lang="ts">
+  import Searcher from './Searcher.vue';
 </script>
 
 <template>
   <header>
     <div :class="$style.container">
       <a :class="$style.link_logo" href="/">
-        <img :id="$style.logo" src="../../../public/ziro_logo.png" alt="logo">
+        <img :id="$style.logo" src="../../../public/ziro_logo.png" alt="Ziro Logo">
       </a>
+      <Searcher/>
     </div>
+    
   </header>
 </template>
 
@@ -26,6 +29,7 @@
     height: 100%;
     display: flex;
     position: relative;
+    justify-content: space-between;
     align-items: end;
     padding-bottom: 12px;
   }
