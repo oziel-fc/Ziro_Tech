@@ -16,6 +16,7 @@
     .search_bar {
         width: 300px;
         height: 34px;
+        margin-bottom: 12px;
     }
     .input_bar {
         display: flex;  /* Alinha o input e o botão lado a lado */
