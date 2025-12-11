@@ -36,7 +36,7 @@ const props = defineProps<{
   }
 
   .category:hover {
-    background-color: rgb(255 255 255 / 30%);
+    background-color: rgb(226 234 241 / 30%);
   }
 
   .category span {
@@ -51,6 +51,8 @@ const props = defineProps<{
     top: 100%;   /* aparece logo abaixo do li da categoria */
     left: 0;
     z-index: 10;
+    border: 1px solid rgb(115 125 131);
+    border-top: none;
   }
 
   .category:hover .sub_element {
@@ -60,16 +62,16 @@ const props = defineProps<{
 
   .subcategorie {
     height: 35px;
-    background-color: #dddbdb;
+    background-color: rgb(216 221 225);
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
   .subcategorie:hover {
-    background-color: #e6e6e6;
+    /* background-color: #e6e6e6; */
     text-decoration: underline;
-     text-decoration-color: rgba(0, 0, 0, 0.500);
+    text-decoration-color: rgba(0, 0, 0, 0.500);
     text-underline-offset: 2px;
     text-decoration-thickness: 1px;
   }

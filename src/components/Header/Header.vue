@@ -41,7 +41,6 @@
       </div>
       <Searcher/>
     </div>
-    
   </header>
 </template>
 
