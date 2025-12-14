@@ -1,6 +1,6 @@
 <script setup>
     import { transform } from 'typescript'
-    import { ref, onMounted } from 'vue'
+    import { ref } from 'vue'
 
     const carousel_items = [{
             img_path: "/src/assets/carousel/phone_headset.png",
@@ -93,7 +93,7 @@
         z-index: 1;
         display: flex;
         flex-direction: row;
-        transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+        transition: transform 1s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
     .banner_image {
         height: 100%;
@@ -150,7 +150,7 @@
         border-radius: 50%;
         border: #ffffff solid 1px;
         cursor: pointer;
-        transition: background-color 0.8s ease, transform 0.8s ease;
+        transition: background-color 1s ease, transform 1s ease;
     }
     .active {
         background-color: #ffffff;
