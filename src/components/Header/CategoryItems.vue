@@ -1,18 +1,32 @@
 <!-- CategoryItem.vue -->
 <script setup lang="ts">
-const props = defineProps<{
-  category: string
-  subcategories: string[]
-}>()
+  const props = defineProps<{
+    category: string
+    subcategories: string[]
+    index: number
+  }>()
+
+  // Function to share the IDs of elements between the components
+  const emit = defineEmits(['hoverCaptureId']);
+
+  const hoverCapture = (event) => {
+    const targetElement = event.currentTarget;
+    const idTargetElement = targetElement.dataset.id
+    emit('hoverCaptureId', idTargetElement);
+  }
 </script>
 
 <template>
-  <li :class="$style.category">
+  <li :class="$style.category" 
+  :data-id="`${index}`"
+  @mouseenter="hoverCapture"
+  >
+
     <a href="/">
       <span>{{ category }}</span>
     </a>
 
-    <ul :class="$style.sub_element" v-if="subcategories.length">
+    <ul :class="$style.dropdown_menu" v-if="subcategories.length">
       <li :class="$style.subcategorie" v-for="item in subcategories" :key="item">
         <a href="">
           <span>{{ item }}</span>
@@ -26,7 +40,7 @@ const props = defineProps<{
   .category {
     position: relative;
     width: 160px;
-    height: 35px;
+    height: 40px;
     font-size: 15px;
     display: flex;
     justify-content: center;
@@ -40,16 +54,17 @@ const props = defineProps<{
   }
   
   /* ul element */
-  .sub_element {
+  .dropdown_menu {
     width: 100%;
     position: absolute;
     display: none;
     top: 100%;   /* aparece logo abaixo do li da categoria */
     left: 0;
     z-index: 1001;
+    border-top: 2px solid transparent;
   }
 
-  .category:hover .sub_element {
+  .category:hover .dropdown_menu {
     display: flex;
     flex-direction: column;
   }

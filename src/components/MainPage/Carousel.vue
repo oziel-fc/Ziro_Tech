@@ -22,7 +22,6 @@
     let currentBanner = ref(1)
     const lenBanners = carousel_items.length
     const currentScreenWidth = window.innerWidth
-    console.log(currentScreenWidth)
 
     const changeBanner = (step) => {
         if (step == 1) {
