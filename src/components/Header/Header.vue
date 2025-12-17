@@ -44,7 +44,6 @@
   // Function coming from the component category, this func acts everytime hover the category element
   const hoverElementIndex = (id: number) => {
     hoverIndex.value = id
-    console.log(hoverIndex.value)
   }
 
 </script>
@@ -106,11 +105,16 @@
     flex-direction: row;
   }
   #marker {
+    display: none;
     height: 6px;
     background: #1b1b1b !important;
     position: absolute;
     bottom: 0;
     z-index: 1;
     transition: transform 0.3s ease;
+    pointer-events: none;
+  }
+  .category_bar:hover #marker {
+    display: block;
   }
 </style>
