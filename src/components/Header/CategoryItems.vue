@@ -1,7 +1,15 @@
 <!-- CategoryItem.vue -->
 <script setup lang="ts">
-import { ref, nextTick } from 'vue';
+  import { ref, nextTick } from 'vue';
+  import { RouterLink } from 'vue-router'
 
+
+  const slugify = (text: string) =>
+    text
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/\s+/g, '-')
 
   const props = defineProps<{
     category: string,
@@ -38,16 +46,16 @@ import { ref, nextTick } from 'vue';
   @mouseleave="resetHover"
   >
 
-    <a href="/">
+    <RouterLink :to="`/${slugify(category)}`">
       <span>{{ category }}</span>
-    </a>
+    </RouterLink>
 
     <div :class="$style.shadow_box" :style="{height: `${dropdownMenuHeight}px`}">
       <ul :class="$style.dropdown_menu" v-if="subcategories.length" ref="dropdownMenu" :style="{bottom: `${dropdownMenuHeight}px`, transform: `translateY(${dropdownMenuHeight}px)`}">
         <li :class="$style.subcategorie" v-for="item in subcategories" :key="item">
-          <a href="">
+          <RouterLink :to="`/${slugify(category)}/${slugify(item)}`">
             <span>{{ item }}</span>
-          </a>
+          </RouterLink>
         </li>
       </ul>
     </div>
@@ -79,7 +87,7 @@ import { ref, nextTick } from 'vue';
     left: 0;
     z-index: 1001;
     border-top: 2px solid transparent;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   }
   .shadow_box {
     top: 100%; 

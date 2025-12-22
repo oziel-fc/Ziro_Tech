@@ -18,7 +18,8 @@
     "strictNullChecks": true,
     "alwaysStrict": true,
     "removeComments": true,
-    "sourceMap": false
+    "sourceMap": false,
+    "moduleResolution": "node"
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"]
 }

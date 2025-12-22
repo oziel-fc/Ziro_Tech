@@ -111,7 +111,7 @@
     position: absolute;
     bottom: 0;
     z-index: 1;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     pointer-events: none;
   }
   .category_bar:hover #marker {
