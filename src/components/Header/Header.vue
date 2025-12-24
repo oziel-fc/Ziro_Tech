@@ -2,27 +2,10 @@
   import Searcher from './Searcher.vue';
   import CategoryItems from './CategoryItems.vue';
   import { ref, onMounted } from 'vue';
+  import dataCategories from '../../data/dataCategories';
 
-  const menu = [
-    {
-      category: "PERIFÉRICOS",
-      subcategories: ["MOUSES", "TECLADOS", "TECLADOS MECÂNICOS", "HEADSETS", "HEADPHONES", "FONES DE OUVIDO"]
-    },
-    {
-      category: "HARDWARE",
-      subcategories: ["MEMÓRIAS RAM", "SSDs", "PENDRIVES", "REDES"]
-    },
-    {
-      category: "ACESSÓRIOS",
-      subcategories: ["CABOS", "MOUSEPADS", "ADAPTADORES", "DECORAÇÃO"]
-    },
-    {
-      category: "OUTROS",
-      subcategories: ["FERRAMENTAS"]
-    }
-  ]
   
-  const lenCategoriesBars = menu.length
+  const lenCategoriesBars = dataCategories.length
   const categoryBarElement = ref<HTMLUListElement | null>(null);
   const categoryBarWidth = ref(0);
   const hoverIndex = ref(0)
@@ -57,9 +40,9 @@
       <div>
         <ul :class="$style.category_bar" ref="categoryBarElement">
           <CategoryItems
-            v-for="(item, index) in menu"
-              :key="item.category"
-              :category="item.category"
+            v-for="(item, index) in dataCategories"
+              :key="item.category.name"
+              :category="item.category.name"
               :subcategories="item.subcategories"
               :index="index"
               @hover-capture-id="hoverElementIndex"

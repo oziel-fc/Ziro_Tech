@@ -1,20 +1,22 @@
 <script setup>
     import { transform } from 'typescript'
     import { ref } from 'vue'
+    import { RouterLink } from 'vue-router'
+    import { slugify } from '../../utils/slugify'
 
     const carousel_items = [{
             img_path: "/src/assets/carousel/phone_headset.png",
-            link: "/",
+            link: "/perifericos",
             alt: "Banner dos Fones e Headsets"
         },
         {
             img_path: "/src/assets/carousel/hardware.png",
-            link: "/",
+            link: "/hardware",
             alt: "Banner dos Hardwares"
         },
         {
             img_path: "/src/assets/carousel/mouse_keyboard.png",
-            link: "/",
+            link: "/perifericos",
             alt: "Banner dos Mouses e Teclados"
         }
     ]
@@ -49,9 +51,9 @@
         <div
             v-for="item in carousel_items"
             :class="$style.banner_image">
-            <a :href="item.link">
+            <RouterLink :to="`${slugify(item.link)}`">
                 <img :src="item.img_path" :alt="item.alt">
-            </a>
+            </RouterLink>
         </div>
     </div>
 
@@ -98,6 +100,12 @@
         height: 100%;
         width: 100%;
     }
+    .banner_image a {
+        display: flex;
+        height: 100%;
+        width: 100%;
+        cursor: pointer;
+    }
     .carousel img {
         width: 100%;
         height: 100%;
@@ -112,6 +120,7 @@
         top: 0;
         width: 100%;
         z-index: 10;
+        pointer-events: none;
     }
     .indicators {
         align-items: center;
@@ -124,10 +133,12 @@
         z-index: 10;
         height: 35px;
         gap: 5px;
+        pointer-events: none;
     }
     .carousel_btn {
         width: 30px;
         height: 30px;
+        pointer-events: auto;
     }
     .carousel_btn.left {
         cursor: pointer;
@@ -143,13 +154,20 @@
         background-repeat: no-repeat;  
         background-position: center; /* centralize */
     }
+    .carousel_btn:hover {
+
+    }
     .indicators_bars {
-        width: 8px;
-        height: 8px;
+        width: 10px;
+        height: 10px;
         border-radius: 50%;
         border: #ffffff solid 1px;
         cursor: pointer;
         transition: background-color 1s ease, transform 1s ease;
+        pointer-events: auto;
+    }
+    .indicators_bars:hover {
+        background-color: hsla(0, 0%, 100%, .4);
     }
     .active {
         background-color: #ffffff;

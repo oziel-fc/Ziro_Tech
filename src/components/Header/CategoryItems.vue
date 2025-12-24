@@ -1,19 +1,17 @@
 <!-- CategoryItem.vue -->
 <script setup lang="ts">
   import { ref, nextTick } from 'vue';
-  import { RouterLink } from 'vue-router'
+  import { RouterLink } from 'vue-router';
+  import { slugify } from '../../utils/slugify';
 
-
-  const slugify = (text: string) =>
-    text
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .replace(/\s+/g, '-')
+  type Subcategory = {
+    name: string,
+    description: string | null
+  }
 
   const props = defineProps<{
     category: string,
-    subcategories: string[],
+    subcategories: Subcategory[],
     index: number
   }>()
 
@@ -52,9 +50,9 @@
 
     <div :class="$style.shadow_box" :style="{height: `${dropdownMenuHeight}px`}">
       <ul :class="$style.dropdown_menu" v-if="subcategories.length" ref="dropdownMenu" :style="{bottom: `${dropdownMenuHeight}px`, transform: `translateY(${dropdownMenuHeight}px)`}">
-        <li :class="$style.subcategorie" v-for="item in subcategories" :key="item">
-          <RouterLink :to="`/${slugify(category)}/${slugify(item)}`">
-            <span>{{ item }}</span>
+        <li :class="$style.subcategorie" v-for="item in subcategories" :key="item.name">
+          <RouterLink :to="`/${slugify(category)}/${slugify(item.name)}`">
+            <span>{{ item.name }}</span>
           </RouterLink>
         </li>
       </ul>
