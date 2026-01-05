@@ -45,14 +45,14 @@
   >
 
     <RouterLink :to="`/${slugify(category)}`">
-      <span>{{ category }}</span>
+      <span>{{ category.toUpperCase() }}</span>
     </RouterLink>
 
     <div :class="$style.shadow_box" :style="{height: `${dropdownMenuHeight}px`}">
       <ul :class="$style.dropdown_menu" v-if="subcategories.length" ref="dropdownMenu" :style="{bottom: `${dropdownMenuHeight}px`, transform: `translateY(${dropdownMenuHeight}px)`}">
         <li :class="$style.subcategorie" v-for="item in subcategories" :key="item.name">
           <RouterLink :to="`/${slugify(category)}/${slugify(item.name)}`">
-            <span>{{ item.name }}</span>
+            <span>{{ item.name.toUpperCase() }}</span>
           </RouterLink>
         </li>
       </ul>
@@ -71,6 +71,13 @@
     align-items: center;
     cursor: pointer;
 
+  }
+  .category a {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .category span {

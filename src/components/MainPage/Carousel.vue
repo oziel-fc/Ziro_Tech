@@ -59,12 +59,16 @@
 
     <div :class="$style.navigators">
         <!-- Back Button -->
-        <div :class="[$style.carousel_btn, $style.left]"
-            @click="changeBanner(-1)">
+        <div :class="$style.carousel_btn_body">
+            <div :class="[$style.carousel_btn, $style.left]"
+                @click="changeBanner(-1)">
+            </div>
         </div>
         <!-- Next Button -->
-        <div :class="[$style.carousel_btn, $style.right]"
-            @click="changeBanner(1)">
+        <div :class="$style.carousel_btn_body">
+            <div :class="[$style.carousel_btn, $style.right]"
+                @click="changeBanner(1)">
+            </div>
         </div>
     </div>
     
@@ -121,6 +125,7 @@
         width: 100%;
         z-index: 10;
         pointer-events: none;
+        padding: 0 10px
     }
     .indicators {
         align-items: center;
@@ -135,31 +140,41 @@
         gap: 5px;
         pointer-events: none;
     }
+    .carousel_btn_body {
+        height: 45px;
+        width: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+    }
     .carousel_btn {
-        width: 30px;
-        height: 30px;
+        width: 25px;
+        height: 25px;
         pointer-events: auto;
     }
     .carousel_btn.left {
         cursor: pointer;
-        background-image: url('../../assets/carousel/back.png');
+        background-image: url('../../assets/carousel/arrow.png');
         background-size: cover;     
         background-repeat: no-repeat;  
         background-position: center; /* centralize */
+        transform: scaleX(-1);
     }
     .carousel_btn.right {
         cursor: pointer;
-        background-image: url('../../assets/carousel/next.png');
+        background-image: url('../../assets/carousel/arrow.png');
         background-size: cover;     /* fill the div */
         background-repeat: no-repeat;  
         background-position: center; /* centralize */
     }
-    .carousel_btn:hover {
-
+    .carousel_btn_body:hover {
+        background-color: hsla(0, 0%, 100%, .4);
+        outline: none;
     }
     .indicators_bars {
-        width: 10px;
-        height: 10px;
+        width: 9px;
+        height: 9px;
         border-radius: 50%;
         border: #ffffff solid 1px;
         cursor: pointer;

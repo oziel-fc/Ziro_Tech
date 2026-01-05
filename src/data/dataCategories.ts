@@ -1,44 +1,44 @@
 const dataCategories = [
   {
     category: {
-      name: "PERIFÉRICOS",
+      name: "Periféricos",
       description: "Linha completa de periféricos para melhorar a experiência de uso, produtividade e desempenho no computador."
     },
     subcategories: [
       {
-        name: "MOUSES",
+        name: "Mouses",
         description: "Mouses para uso diário, jogos e aplicações profissionais, com diferentes sensores e formatos."
       },
       {
-        name: "TECLADOS",
+        name: "Teclados",
         description: "Teclados para escritório, estudo e uso geral, com diferentes layouts e tecnologias."
       },
       {
-        name: "TECLADOS MECÂNICOS",
+        name: "Teclados Mecânicos",
         description: "Teclados mecânicos com switches variados, maior durabilidade e resposta precisa."
       },
       {
-        name: "HEADSETS",
+        name: "Headsets",
         description: "Headsets com microfone integrado para comunicação, trabalho remoto e jogos."
       },
       {
-        name: "HEADPHONES",
+        name: "Headphones",
         description: "Headphones sem microfone, focados em qualidade de áudio e conforto."
       },
       {
-        name: "FONES DE OUVIDO",
+        name: "Fones de Ouvido",
         description: "Fones de ouvido intra-auriculares e modelos compactos para uso diário."
       }
     ]
   },
   {
     category: {
-      name: "HARDWARE",
+      name: "Hardware",
       description: "Componentes internos e dispositivos essenciais para computadores."
     },
     subcategories: [
       {
-        name: "MEMÓRIAS RAM",
+        name: "Memórias RAM",
         description: null
       },
       {
@@ -46,47 +46,47 @@ const dataCategories = [
         description: null
       },
       {
-        name: "PENDRIVES",
+        name: "Pendrives",
         description: null
       },
       {
-        name: "REDES",
+        name: "Redes",
         description: "Equipamentos e acessórios para conexão e comunicação de rede."
       }
     ]
   },
   {
     category: {
-      name: "ACESSÓRIOS",
+      name: "Acessórios",
       description: "Acessórios essenciais para complementar, organizar e personalizar seus equipamentos."
     },
     subcategories: [
       {
-        name: "CABOS",
+        name: "Cabos",
         description: "Cabos de energia, dados e vídeo, além de adaptadores para diversas conexões."
       },
       {
-        name: "MOUSEPADS",
+        name: "Mousepads",
         description: null
       },
       {
-        name: "ADAPTADORES",
+        name: "Adaptadores",
         description: null
       },
       {
-        name: "DECORAÇÃO",
+        name: "Decoração",
         description: "Itens decorativos para setup e ambiente."
       }
     ]
   },
   {
     category: {
-      name: "OUTROS",
+      name: "Outros",
       description: "Itens diversos que não se enquadram nas categorias principais."
     },
     subcategories: [
       {
-        name: "FERRAMENTAS",
+        name: "Ferramentas",
         description: null
       }
     ]
