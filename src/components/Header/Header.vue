@@ -34,9 +34,9 @@
 <template>
   <header>
     <div :class="$style.container">
-      <a :class="$style.link_logo" href="/">
+      <RouterLink :to="'/'" :class="$style.link_logo">
         <img :id="$style.logo" src="../../../public/ziro_logo.png" alt="Ziro Logo">
-      </a>
+      </RouterLink>
       <div>
         <ul :class="$style.category_bar" ref="categoryBarElement">
           <CategoryItems

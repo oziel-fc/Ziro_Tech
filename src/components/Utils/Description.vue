@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import dataCategories from '../../data/dataCategories'
 import { slugify } from '../../utils/slugify'
-import { watchEffect } from 'vue'
+// import { watchEffect } from 'vue'
 
 const route = useRoute()
 
@@ -30,9 +30,9 @@ const currentSubcategory = computed(() => {
 })
 
 
-watchEffect(() => {
-  console.log('currentCategory agora é:', currentCategory.value, currentSubcategory.value)
-})
+// watchEffect(() => {
+//   // console.log('currentCategory agora é:', currentCategory.value, currentSubcategory.value)
+// })
 
 </script>
 
@@ -64,8 +64,9 @@ watchEffect(() => {
   }
   .description div {
     width: var(--default-page-width);
-    padding: 20px 0px;
+    padding: 18px 0px;
     margin-top: 10px;
+    border-bottom: 1px solid rgb(193 193 193);
   }
   .description h1 {
     color: black;
