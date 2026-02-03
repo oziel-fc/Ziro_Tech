@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import CreateProductCard from './createProductCard.vue';
+  import CreateProductCard from './CreateProductCard.vue';
   import { ref, onMounted } from 'vue';
 
   interface ProductSimple {
@@ -20,7 +20,7 @@
       const rawJSON = await response.json()
       
       productsData.value = rawJSON
-      // console.log(productsData.value[0]?.shopee?.name)
+      // console.log(productsData.value[0]?.shopee?.images)
     } catch (err) {
       console.error("Erro ao buscar o JSON:", err)
     }

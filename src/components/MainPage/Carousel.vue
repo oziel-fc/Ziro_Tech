@@ -1,5 +1,4 @@
-<script setup>
-    import { transform } from 'typescript'
+<script setup lang="ts">
     import { ref } from 'vue'
     import { RouterLink } from 'vue-router'
     import { slugify } from '../../utils/slugify'
@@ -23,7 +22,6 @@
     
     let currentBanner = ref(1)
     const lenBanners = carousel_items.length
-    const currentScreenWidth = window.innerWidth
 
     const changeBanner = (step) => {
         if (step == 1) {
@@ -39,15 +37,16 @@
             }
         }
     }
+    const carouselMainDiv = ref<HTMLElement | null>(null); // Taking the value of referenced object
 </script>
 
 
 <template>
-  <div :class="$style.carousel">
+  <div ref="carouselMainDiv" :class="$style.carousel">
     
 
     <div :class="$style.carousel_slides"
-    :style="{width: `calc(100% * ${lenBanners})`, transform: `translateX(calc(${currentScreenWidth}px * -${currentBanner - 1}))`}">
+    :style="{width: `calc(100% * ${lenBanners})`, transform: `translateX(calc(${carouselMainDiv != null ? carouselMainDiv.offsetWidth : 0}px * -${currentBanner - 1}))`}"> 
         <div
             v-for="item in carousel_items"
             :class="$style.banner_image">
@@ -87,9 +86,9 @@
 
 <style module>
     .carousel {
-        position: relative;
         width: 100%;
-        aspect-ratio: 5.56 / 1;
+        position: relative;
+        aspect-ratio: 1920 / 350;
     }
     .carousel_slides {
         height: 100%;
