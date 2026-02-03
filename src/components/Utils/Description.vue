@@ -1,55 +1,68 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useRoute } from 'vue-router'
-import dataCategories from '../../data/dataCategories'
-import { slugify } from '../../utils/slugify'
-// import { watchEffect } from 'vue'
+  import { computed } from 'vue'
+  import { useRoute } from 'vue-router'
+  import dataCategories from '../../data/descriptionCategories'
+  import { slugify } from '../../utils/slugify'
 
-const route = useRoute()
+  const route = useRoute()
 
-// Function who changes every time with the change of the route
-const currentCategory = computed(() => {
-  const category = route.params.category
-  
-  if (typeof category !== 'string') return undefined
+  // Function who changes every time with the change of the route
+  const currentCategory = computed(() => {
+    const category = route.params.category
+    
+    if (typeof category !== 'string') return undefined
 
-  return dataCategories.find(
-    c => slugify(c.category.name) === slugify(category)
-  )
-})
+    return dataCategories.find(
+      c => slugify(c.category.name) === slugify(category)
+    )
+  })
 
-const currentSubcategory = computed(() => {
-  const subcategory = route.params.subcategory
+  const currentSubcategory = computed(() => {
+    const subcategory = route.params.subcategory
 
-  if (typeof subcategory !== 'string') return undefined
-  if (!currentCategory.value) return undefined
+    if (typeof subcategory !== 'string') return undefined
+    if (!currentCategory.value) return undefined
 
-  return currentCategory.value.subcategories.find(
-    sub => slugify(sub.name) === slugify(subcategory)
-  )
-})
+    return currentCategory.value.subcategories.find(
+      sub => slugify(sub.name) === slugify(subcategory)
+    )
+  })
 
 
-// watchEffect(() => {
-//   // console.log('currentCategory agora é:', currentCategory.value, currentSubcategory.value)
-// })
+  // Functions to show the description
+  const showTitle = computed(() => {
+    if (!currentCategory.value && !currentSubcategory.value && !route.params.product) {
+      return 'Destaques'
+    }
+    if (currentCategory.value && !currentSubcategory.value) {
+      return currentCategory.value.category.name
+    }
+    if (currentCategory.value && currentSubcategory.value) {
+      return currentSubcategory.value.name
+    }
+  })
 
+  const showDescription = computed(() => {
+    if (!currentCategory.value && !currentSubcategory.value && !route.params.product) {
+      return 'Os produtos mais populares e selecionados especialmente para você.'
+    }
+    if (currentCategory.value && !currentSubcategory.value) {
+      return currentCategory.value.category.description
+    }
+    if (currentCategory.value && currentSubcategory.value) {
+      return currentSubcategory.value.description
+    }
+  })
 </script>
 
 <template>
-  <section :class="$style.description" v-if="currentCategory">
+  <section :class="$style.description" v-if="showTitle">
     <div>
       <h1>
-        {{ currentSubcategory?.name || currentCategory?.category.name }}
+        {{ showTitle }}
       </h1>
       <p>
-        {{
-          currentSubcategory && currentSubcategory.description
-            ? currentSubcategory.description
-            : currentSubcategory
-              ? ''
-              : currentCategory?.category.description
-        }}
+        {{ showDescription }}
     </p>
     </div>
   </section>

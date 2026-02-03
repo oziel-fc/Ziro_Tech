@@ -1,4 +1,4 @@
-const dataCategories = [
+const descriptionCategories = [
   {
     category: {
       name: "Periféricos",
@@ -75,14 +75,14 @@ const dataCategories = [
       },
       {
         name: "Decoração",
-        description: "Itens decorativos para setup e ambiente."
+        description: "Escolha os melhores itens decorativos para setup e ambiente."
       }
     ]
   },
   {
     category: {
       name: "Outros",
-      description: "Itens diversos que não se enquadram nas categorias principais."
+      description: null
     },
     subcategories: [
       {
@@ -93,4 +93,4 @@ const dataCategories = [
   }
 ];
 
-export default dataCategories;
+export default descriptionCategories;

@@ -12,7 +12,7 @@
 
 <template>
   <div :class="$style.product">
-    <RouterLink :to="`/${slugify(title)}`">
+    <RouterLink :to="`/p/${slugify(title)}`">
       <div :class="$style.product_card">
         <div :class="$style.product_img">
           <img :src="img_path" :alt="title">

@@ -2,7 +2,7 @@
   import Searcher from './Searcher.vue';
   import CategoryItems from './CategoryItems.vue';
   import { ref, onMounted } from 'vue';
-  import dataCategories from '../../data/dataCategories';
+  import dataCategories from '../../data/descriptionCategories';
 
   
   const lenCategoriesBars = dataCategories.length
