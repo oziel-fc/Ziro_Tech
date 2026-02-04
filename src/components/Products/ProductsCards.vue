@@ -1,16 +1,23 @@
 <script setup lang="ts">
+  import { useRoute } from 'vue-router';
   import CreateProductCard from './CreateProductCard.vue';
-  import { ref, onMounted } from 'vue';
+  import { ref, onMounted, watch } from 'vue';
+  import { slugify } from '../../utils/slugify';
+
+  const route = useRoute()
 
   interface ProductSimple {
     shopee: {
       name: string;
+      category: string;
+      subcategory: string;
       price: string;
       images: string[];
     } | null;
   }
 
-  const productsData = ref<ProductSimple[]>([])
+  const RAWDataProducts = ref<ProductSimple[]>([])
+  const filteredDataProducts = ref<ProductSimple[]>([])
 
   const loadData = async () => {
     try {
@@ -19,24 +26,35 @@
       const response = await fetch(url)
       const rawJSON = await response.json()
       
-      productsData.value = rawJSON
-      // console.log(productsData.value[0]?.shopee?.images)
+      RAWDataProducts.value = rawJSON
+      // console.log(RAWDataProducts.value)
     } catch (err) {
-      console.error("Erro ao buscar o JSON:", err)
+      console.error("Error while searching for JSON: ", err)
     }
   }
+
+  watch(
+    () => route.params,
+    (currentRoute) => {
+      filteredDataProducts.value = RAWDataProducts.value.filter(
+          product => slugify(product.shopee?.subcategory || '') == currentRoute.subcategory
+      );
+      console.log(filteredDataProducts)
+    },
+    { immediate: true}
+  )
 
   onMounted(() => {
     loadData()
   })
-
+  
 </script>
 
 <template>
     <section :class="$style.products_section">
       <div :class="$style.products_cards">
         <CreateProductCard
-        v-for="product in productsData"
+        v-for="product in filteredDataProducts"
           :title="product.shopee?.name || 'Carregando...'" 
           :price="product.shopee?.price || ''" 
           :img_path="product.shopee?.images[0] || ''"
