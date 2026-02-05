@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { useRoute } from 'vue-router';
   import CreateProductCard from './CreateProductCard.vue';
-  import { ref, onMounted, watch } from 'vue';
+  import { ref, onMounted, computed, watch } from 'vue';
   import { slugify } from '../../utils/slugify';
 
   const route = useRoute()
@@ -17,7 +17,6 @@
   }
 
   const RAWDataProducts = ref<ProductSimple[]>([])
-  const filteredDataProducts = ref<ProductSimple[]>([])
 
   const loadData = async () => {
     try {
@@ -33,16 +32,47 @@
     }
   }
 
-  watch(
-    () => route.params,
-    (currentRoute) => {
-      filteredDataProducts.value = RAWDataProducts.value.filter(
-          product => slugify(product.shopee?.subcategory || '') == currentRoute.subcategory
-      );
-      console.log(filteredDataProducts)
-    },
-    { immediate: true}
-  )
+  const filteredDataProducts = computed<ProductSimple[]>(() => {
+    const currentRoute = route.params;
+    const productsData = RAWDataProducts.value;
+
+    return productsData.filter(product => {
+      const productSubcategory = slugify(product.shopee?.subcategory || '');
+      const productCategory = slugify(product.shopee?.category || '');
+
+      if (currentRoute.subcategory && productSubcategory === currentRoute.subcategory) return true;
+      if (!currentRoute.subcategory && productCategory === currentRoute.category) return true;
+      
+      
+      
+      return false;
+    });
+  });
+
+  watch(filteredDataProducts, (novoValor) => {
+    console.log("Produtos atualizados:", novoValor);
+  }, { deep: true });
+    
+  // watch(
+  //   () => route.params,
+  //   (currentRoute) => {
+  //     // Assigning values ​​to filteredDataProducts according to the accessed route.
+  //     filteredDataProducts.value = RAWDataProducts.value.filter(
+  //       product => {
+  //         // If subcategory exists
+  //         if (slugify(product.shopee?.subcategory || '') == currentRoute.subcategory) {
+  //           return true
+  //         }
+  //         // If subcategory doesn't exist and category is equal the product category
+  //         if (currentRoute.subcategory == undefined && slugify(product.shopee?.category || '') == currentRoute.category) {
+  //           return true
+  //         }
+  //       }
+  //     );
+  //     console.log(filteredDataProducts.value)
+  //   },
+  //   { immediate: true}
+  // )
 
   onMounted(() => {
     loadData()
@@ -52,7 +82,7 @@
 
 <template>
     <section :class="$style.products_section">
-      <div :class="$style.products_cards">
+      <div :class="$style.products_cards" v-if="filteredDataProducts.length > 0">
         <CreateProductCard
         v-for="product in filteredDataProducts"
           :title="product.shopee?.name || 'Carregando...'" 
@@ -60,24 +90,45 @@
           :img_path="product.shopee?.images[0] || ''"
         />
       </div>
+      <div :class="$style.warning" v-if="filteredDataProducts.length <= 0">
+        <span>Oops!</span>
+        <span>Não encontramos nenhum produto deste tipo!</span>
+        <img src="../../assets/box.png" alt="Caixa Vazia" style="width: 100px;">
+      </div>
     </section>
 </template>
 
 <style module>
-.products_section {
-  display: flex;
-  width: 100%;
-  justify-content: center;
-}
-.products_cards {
-  display: grid;
-  /* Cria 4 colunas com tamanhos iguais (1fr) */
-  grid-template-columns: repeat(4, 1fr); 
-  /* Espaçamento entre os cards */
-  gap: 20px; 
-  width: var(--default-page-width);
-  margin-top: 60px;
-}
-
+  .products_section {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
+  .products_cards {
+    display: grid;
+    /* Create 4 columns of equal size. (1fr) */
+    grid-template-columns: repeat(4, 1fr); 
+    /* Padding between cards */
+    gap: 20px; 
+    width: var(--default-page-width);
+    margin-top: 60px;
+  }
+  .warning {
+    color: black;
+    width: var(--default-page-width);
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .warning span {
+    font-size: 22px;
+    font-weight: 800;
+    text-align: left;
+  }
+  .warning img {
+    margin-top: 20px;
+  }
 
 </style>

@@ -5,17 +5,17 @@
 
     const carousel_items = [{
             img_path: "/src/assets/carousel/phone_headset.png",
-            link: "/perifericos",
+            link: "perifericos",
             alt: "Banner dos Fones e Headsets"
         },
         {
             img_path: "/src/assets/carousel/hardware.png",
-            link: "/hardware",
+            link: "hardware",
             alt: "Banner dos Hardwares"
         },
         {
             img_path: "/src/assets/carousel/mouse_keyboard.png",
-            link: "/perifericos",
+            link: "perifericos",
             alt: "Banner dos Mouses e Teclados"
         }
     ]
@@ -50,7 +50,7 @@
         <div
             v-for="item in carousel_items"
             :class="$style.banner_image">
-            <RouterLink :to="`${slugify(item.link)}`">
+            <RouterLink :to="`/${slugify(item.link)}`">
                 <img :src="item.img_path" :alt="item.alt">
             </RouterLink>
         </div>
