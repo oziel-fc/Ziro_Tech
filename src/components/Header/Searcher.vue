@@ -1,16 +1,31 @@
+<script setup lang="ts">
+    import { ref } from 'vue'
+    import { useSearchStore } from '../../utils/useSearchStore'
+
+    const searchStore = useSearchStore()
+    const localSearch = ref('') 
+
+    const handleSearch = () => {
+        searchStore.setSearch(localSearch.value)
+    }
+</script>
+
+
 <template>
   <div :class="$style.search_bar">
-    <form :class="$style.input_bar">
-        <input :class="$style.input" type="search" placeholder="O que você procura?" />
+    <form :class="$style.input_bar" @submit.prevent="handleSearch">
+        <input
+            v-model="localSearch"
+            :class="$style.input" 
+            type="search" 
+            placeholder="O que você procura?" 
+            />
         <button :class="$style.button_search">
-            <img src="../../../src/assets/search.png" alt="">
+            <img src="../../../src/assets/search.png" alt="Lupa">
         </button>
     </form>
   </div>
 </template>
-
-<script setup>
-</script>
 
 <style module>
     .search_bar {
