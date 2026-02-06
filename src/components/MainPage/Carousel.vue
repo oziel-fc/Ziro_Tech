@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import { ref } from 'vue'
+    import { ref, onMounted, onUnmounted } from 'vue'
     import { RouterLink } from 'vue-router'
     import { slugify } from '../../utils/slugify'
 
@@ -38,6 +38,30 @@
         }
     }
     const carouselMainDiv = ref<HTMLElement | null>(null); // Taking the value of referenced object
+    let timerID: ReturnType<typeof setInterval> | null = null;
+
+    const carouselChangeTimer = () => {
+        if (timerID) clearInterval(timerID)
+        timerID = setInterval(() => {
+            currentBanner.value += 1
+            if (currentBanner.value > lenBanners) {
+                currentBanner.value = 1
+            }
+        }, 5000)
+    }
+
+    const resetChangeTimer = () => {
+        if (timerID) clearInterval(timerID);
+        carouselChangeTimer();
+    };
+
+    onMounted(() => {
+        carouselChangeTimer()
+    })
+
+    onUnmounted(() => {
+        if (timerID) clearInterval(timerID);
+    });
 </script>
 
 
@@ -60,13 +84,13 @@
         <!-- Back Button -->
         <div :class="$style.carousel_btn_body">
             <div :class="[$style.carousel_btn, $style.left]"
-                @click="changeBanner(-1)">
+                @click="changeBanner(-1), resetChangeTimer()">
             </div>
         </div>
         <!-- Next Button -->
         <div :class="$style.carousel_btn_body">
             <div :class="[$style.carousel_btn, $style.right]"
-                @click="changeBanner(1)">
+                @click="changeBanner(1), resetChangeTimer()">
             </div>
         </div>
     </div>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { useRoute } from 'vue-router';
   import CreateProductCard from './CreateProductCard.vue';
-  import { ref, onMounted, computed, watch } from 'vue';
+  import { ref, onMounted, computed } from 'vue';
   import { slugify } from '../../utils/slugify';
 
   const route = useRoute()
@@ -49,30 +49,10 @@
     });
   });
 
-  watch(filteredDataProducts, (novoValor) => {
-    console.log("Produtos atualizados:", novoValor);
-  }, { deep: true });
+  // watch(filteredDataProducts, (novoValor) => {
+  //   console.log("Produtos atualizados:", novoValor);
+  // }, { deep: true });
     
-  // watch(
-  //   () => route.params,
-  //   (currentRoute) => {
-  //     // Assigning values ​​to filteredDataProducts according to the accessed route.
-  //     filteredDataProducts.value = RAWDataProducts.value.filter(
-  //       product => {
-  //         // If subcategory exists
-  //         if (slugify(product.shopee?.subcategory || '') == currentRoute.subcategory) {
-  //           return true
-  //         }
-  //         // If subcategory doesn't exist and category is equal the product category
-  //         if (currentRoute.subcategory == undefined && slugify(product.shopee?.category || '') == currentRoute.category) {
-  //           return true
-  //         }
-  //       }
-  //     );
-  //     console.log(filteredDataProducts.value)
-  //   },
-  //   { immediate: true}
-  // )
 
   onMounted(() => {
     loadData()
