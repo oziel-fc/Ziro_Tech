@@ -22,6 +22,7 @@
     
     let currentBanner = ref(1)
     const lenBanners = carousel_items.length
+    const carouselMainDiv = ref<HTMLElement | null>(null); // Taking the value of referenced object
 
     const changeBanner = (step) => {
         if (step == 1) {
@@ -37,7 +38,7 @@
             }
         }
     }
-    const carouselMainDiv = ref<HTMLElement | null>(null); // Taking the value of referenced object
+
     let timerID: ReturnType<typeof setInterval> | null = null;
 
     const carouselChangeTimer = () => {

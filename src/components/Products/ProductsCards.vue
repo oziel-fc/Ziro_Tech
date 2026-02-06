@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { useRoute } from 'vue-router';
   import CreateProductCard from './CreateProductCard.vue';
-  import { ref, onMounted, computed } from 'vue';
+  import { ref, onMounted, computed, watch } from 'vue';
   import { slugify } from '../../utils/slugify';
 
   const route = useRoute()
@@ -48,11 +48,17 @@
       return false;
     });
   });
-
   // watch(filteredDataProducts, (novoValor) => {
   //   console.log("Produtos atualizados:", novoValor);
   // }, { deep: true });
-    
+  
+  const isLoading = ref<boolean>(true);
+
+  watch(RAWDataProducts, (data) => {
+    if (data && data.length > 0) {
+      isLoading.value = false
+    }
+  })
 
   onMounted(() => {
     loadData()
@@ -62,6 +68,7 @@
 
 <template>
     <section :class="$style.products_section">
+
       <div :class="$style.products_cards" v-if="filteredDataProducts.length > 0">
         <CreateProductCard
         v-for="product in filteredDataProducts"
@@ -70,10 +77,15 @@
           :img_path="product.shopee?.images[0] || ''"
         />
       </div>
-      <div :class="$style.warning" v-if="filteredDataProducts.length <= 0">
+
+      <div :class="$style.warning" v-if="filteredDataProducts.length <= 0 && !isLoading">
         <span>Oops!</span>
         <span>Não encontramos nenhum produto deste tipo!</span>
         <img src="../../assets/box.png" alt="Caixa Vazia" style="width: 100px;">
+      </div>
+
+      <div :class="$style.loading" v-if="isLoading">
+        <img src="../../assets/loading.apng" alt="Gif de Loading">
       </div>
     </section>
 </template>
@@ -111,4 +123,10 @@
     margin-top: 20px;
   }
 
+  .loading {
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 </style>
