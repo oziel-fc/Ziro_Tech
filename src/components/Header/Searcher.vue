@@ -1,12 +1,16 @@
 <script setup lang="ts">
     import { ref } from 'vue'
     import { useSearchStore } from '../../utils/useSearchStore'
+    import { useRouter } from 'vue-router'
+    import { slugify } from '../../utils/slugify'
 
+    const router = useRouter()
     const searchStore = useSearchStore()
     const localSearch = ref('') 
 
     const handleSearch = () => {
         searchStore.setSearch(localSearch.value)
+        router.push(`/search/${slugify(searchStore.searchQuery)}`)
     }
 </script>
 

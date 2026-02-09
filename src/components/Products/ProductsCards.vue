@@ -17,6 +17,7 @@
   }
 
   const RAWDataProducts = ref<ProductSimple[]>([])
+  const isLoading = ref<boolean>(true);
 
   const loadData = async () => {
     try {
@@ -37,8 +38,19 @@
     const productsData = RAWDataProducts.value;
 
     return productsData.filter(product => {
+
+      const searchedItem = String(route.params.searched).split('-')
+      const productNameWordlist = slugify(product.shopee?.name || '').split("-")
       const productSubcategory = slugify(product.shopee?.subcategory || '');
       const productCategory = slugify(product.shopee?.category || '');
+
+      // Check if route search exists and compare what are searched with product
+      if (searchedItem) {
+        if (searchedItem.some(item => productNameWordlist.includes(item) || item == productCategory || item == productSubcategory)) {
+          return true
+        }
+      }
+
 
       if (currentRoute.subcategory && productSubcategory === currentRoute.subcategory) return true;
       if (!currentRoute.subcategory && productCategory === currentRoute.category) return true;
@@ -48,17 +60,19 @@
       return false;
     });
   });
-  // watch(filteredDataProducts, (novoValor) => {
-  //   console.log("Produtos atualizados:", novoValor);
-  // }, { deep: true });
-  
-  const isLoading = ref<boolean>(true);
 
-  watch(RAWDataProducts, (data) => {
-    if (data && data.length > 0) {
+  watch(filteredDataProducts, () => {
+    isLoading.value = true
+    setTimeout(() => {
       isLoading.value = false
-    }
-  })
+    }, 200)
+  }, { deep: true });
+
+  // watch(RAWDataProducts, (data) => {
+  //   if (data && data.length > 0) {
+  //     isLoading.value = false
+  //   }
+  // })
 
   onMounted(() => {
     loadData()
@@ -69,7 +83,7 @@
 <template>
     <section :class="$style.products_section">
 
-      <div :class="$style.products_cards" v-if="filteredDataProducts.length > 0">
+      <div :class="$style.products_cards" v-if="filteredDataProducts.length > 0 && !isLoading">
         <CreateProductCard
         v-for="product in filteredDataProducts"
           :title="product.shopee?.name || 'Carregando...'" 
