@@ -1,17 +1,24 @@
 <script setup lang="ts">
-    import { ref } from 'vue'
+    import { ref, watch } from 'vue'
     import { useSearchStore } from '../../utils/useSearchStore'
-    import { useRouter } from 'vue-router'
+    import { useRoute, useRouter } from 'vue-router'
     import { slugify } from '../../utils/slugify'
 
+    const route = useRoute()
     const router = useRouter()
     const searchStore = useSearchStore()
     const localSearch = ref('') 
 
     const handleSearch = () => {
         searchStore.setSearch(localSearch.value)
-        router.push(`/search/${slugify(searchStore.searchQuery)}`)
+        router.push(`/search/${searchStore.searchQuery}`)
     }
+
+    watch(route, () => {
+        if (!route.params.searched) {
+            searchStore.cleanSearch()
+        }
+    }, { immediate: true })
 </script>
 
 

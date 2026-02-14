@@ -34,28 +34,29 @@
   }
 
   const filteredDataProducts = computed<ProductSimple[]>(() => {
-    const currentRoute = route.params;
+    const { category, subcategory, searched } = route.params;
     const productsData = RAWDataProducts.value;
+    const searchedTerms = slugify(String(searched || ''))
+    .split('-')
+    .filter(word => word.length > 2)
 
     return productsData.filter(product => {
-
-      const searchedItem = String(route.params.searched).split('-')
-      const productNameWordlist = slugify(product.shopee?.name || '').split("-")
+      const productNameWordlist = slugify(product.shopee?.name || '')
       const productSubcategory = slugify(product.shopee?.subcategory || '');
       const productCategory = slugify(product.shopee?.category || '');
 
       // Check if route search exists and compare what are searched with product
-      if (searchedItem) {
-        if (searchedItem.some(item => productNameWordlist.includes(item) || item == productCategory || item == productSubcategory)) {
+      if (searchedTerms.length > 0) {
+        if (searchedTerms.some(item => productNameWordlist.includes(item) || item == productCategory || item == productSubcategory)) {
           return true
         }
       }
 
 
-      if (currentRoute.subcategory && productSubcategory === currentRoute.subcategory) return true;
-      if (!currentRoute.subcategory && productCategory === currentRoute.category) return true;
+      if (subcategory && productSubcategory === subcategory) return true;
+      if (!subcategory && productCategory === category) return true;
       
-      
+     
       
       return false;
     });

@@ -1,14 +1,31 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
+import { slugify } from './slugify'
 
 export const useSearchStore = defineStore('search', () => {
-    const searchQuery = ref('') // global state
+    const searchQuery = ref<String | null>(null)
+    const route = useRoute()
 
-    // function to set global state
+    watch(
+        () => route.params.searched,
+        (newSearch) => {
+            if (newSearch) {
+                searchQuery.value = slugify(newSearch as string)
+            }
+        },
+        { immediate: true }
+    )
+
     function setSearch(newValue: string) {
         searchQuery.value = newValue
-        console.log(newValue)
     }
 
-    return { searchQuery, setSearch }
+    function cleanSearch() {
+        searchQuery.value = null
+    }
+    
+    console.log(searchQuery.value)
+
+    return { searchQuery, setSearch, cleanSearch }
 })
