@@ -52,7 +52,9 @@
     }
 
     const resetChangeTimer = () => {
-        if (timerID) clearInterval(timerID);
+        if (timerID) {
+            clearInterval(timerID)
+        };
         carouselChangeTimer();
     };
 
@@ -102,7 +104,7 @@
             v-for="i in carousel_items.length"
             :class="[$style.indicators_bars, currentBanner === i ? $style.active : '']"
             :key="i"
-            @click="currentBanner = i">
+            @click="currentBanner = i, resetChangeTimer()">
         </div>
     </div>
 

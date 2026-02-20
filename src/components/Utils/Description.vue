@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { computed, ref, watch } from 'vue'
+  import { computed } from 'vue'
   import { useRoute } from 'vue-router'
   import dataCategories from '../../data/descriptionCategories'
   import { slugify } from '../../utils/slugify'

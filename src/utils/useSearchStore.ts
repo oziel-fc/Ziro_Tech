@@ -9,10 +9,15 @@ export const useSearchStore = defineStore('search', () => {
 
     watch(
         () => route.params.searched,
-        (newSearch) => {
-            if (newSearch) {
-                searchQuery.value = slugify(newSearch as string)
+        (searchedItem) => {
+            if (searchedItem) {
+                searchQuery.value = slugify(searchedItem as string)
             }
+            else {
+                searchQuery.value = null
+            }
+            // Testing the watch function
+            // console.log(searchQuery.value)
         },
         { immediate: true }
     )
@@ -25,7 +30,7 @@ export const useSearchStore = defineStore('search', () => {
         searchQuery.value = null
     }
     
-    console.log(searchQuery.value)
+    
 
     return { searchQuery, setSearch, cleanSearch }
 })
