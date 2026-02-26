@@ -69,12 +69,6 @@
     }, 200)
   }, { deep: true });
 
-  // watch(RAWDataProducts, (data) => {
-  //   if (data && data.length > 0) {
-  //     isLoading.value = false
-  //   }
-  // })
-
   onMounted(() => {
     loadData()
   })

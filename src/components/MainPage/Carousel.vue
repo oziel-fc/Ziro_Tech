@@ -1,11 +1,10 @@
 <script setup lang="ts">
     import { ref, onMounted, onUnmounted } from 'vue'
     import { RouterLink } from 'vue-router'
-    import { slugify } from '../../utils/slugify'
 
     const carousel_items = [{
             img_path: "/src/assets/carousel/phone_headset.png",
-            link: "perifericos",
+            link: "search/fone headset headphone",
             alt: "Banner dos Fones e Headsets"
         },
         {
@@ -15,7 +14,7 @@
         },
         {
             img_path: "/src/assets/carousel/mouse_keyboard.png",
-            link: "perifericos",
+            link: "search/mouse-teclado",
             alt: "Banner dos Mouses e Teclados"
         }
     ]
@@ -77,7 +76,7 @@
         <div
             v-for="item in carousel_items"
             :class="$style.banner_image">
-            <RouterLink :to="`/${slugify(item.link)}`">
+            <RouterLink :to="`/${item.link}`">
                 <img :src="item.img_path" :alt="item.alt">
             </RouterLink>
         </div>

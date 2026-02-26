@@ -1,15 +1,9 @@
 <script setup lang="ts">
-  import Header from './components/Header/Header.vue'
-  import Carousel from './components/MainPage/Carousel.vue';
-  import Description from './components/Utils/Description.vue';
-  import ProductsCards from './components/Products/ProductsCards.vue';
+  import DefaultLayout from './components/Layout/DefaultLayout.vue';
 </script>
 
 <template>
-  <Header></Header>
-  <Carousel/>
-  <Description/>
-  <ProductsCards/>
+  <DefaultLayout/>
 </template>
 
 <style scoped>
