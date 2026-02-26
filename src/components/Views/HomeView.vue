@@ -2,7 +2,7 @@
    
     import Carousel from '../MainPage/Carousel.vue';
     import Description from '../MainPage/Description.vue';
-    import ProductsCards from '../Products/ProductsCards.vue';
+    import ProductsCards from '../Cards/ProductsCards.vue';
 </script>
 
 <template>

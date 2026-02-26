@@ -1,17 +1,18 @@
-<template>
-  <div class="ProductView">
-    
-  </div>
-</template>
-
 <script setup>
-
+    import ProductHeader from '../Product/ProductHeader.vue';
 </script>
 
-<style scoped>
-.ProductView {
-    width: 100px;
-    height: 100px;
-    background-color: blue;
+<template>
+  <section :class="$style.product">
+    <ProductHeader/>
+  </section>
+</template>
+
+<style module>
+.product {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 </style>
