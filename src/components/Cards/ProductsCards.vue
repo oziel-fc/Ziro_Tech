@@ -1,10 +1,12 @@
 <script setup lang="ts">
   import { useRoute } from 'vue-router';
   import CreateProductCard from './CreateProductCard.vue';
-  import { ref, onMounted, computed, watch } from 'vue';
+  import { nextTick, computed, watch } from 'vue';
   import { slugify } from '../../utils/slugify';
+  import { DataProducts, isLoading } from '../../utils/useProductStore';
 
   const route = useRoute()
+  const RAWDataProducts = DataProducts
 
   interface ProductSimple {
     shopee: {
@@ -16,22 +18,6 @@
     } | null;
   }
 
-  const RAWDataProducts = ref<ProductSimple[]>([])
-  const isLoading = ref<boolean>(true);
-
-  const loadData = async () => {
-    try {
-      const url = 'https://raw.githubusercontent.com/oziel-fc/products_ziro/refs/heads/master/products.json'
-      
-      const response = await fetch(url)
-      const rawJSON = await response.json()
-      
-      RAWDataProducts.value = rawJSON
-      // console.log(RAWDataProducts.value)
-    } catch (err) {
-      console.error("Error while searching for JSON: ", err)
-    }
-  }
 
   const filteredDataProducts = computed<ProductSimple[]>(() => {
     const { category, subcategory, searched } = route.params;
@@ -62,16 +48,21 @@
     });
   });
 
-  watch(filteredDataProducts, () => {
-    isLoading.value = true
-    setTimeout(() => {
-      isLoading.value = false
-    }, 200)
-  }, { deep: true });
+  watch(
+    () => route.fullPath,
+    async () => {
+        // console.log("Test")
+        isLoading.value = true;
+        
+        await nextTick(); 
+        
+        setTimeout(() => {
+            isLoading.value = false;
+        }, 200); 
+    },
+    { immediate: true }
+);
 
-  onMounted(() => {
-    loadData()
-  })
   
 </script>
 
