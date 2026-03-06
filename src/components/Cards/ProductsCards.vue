@@ -21,7 +21,7 @@
 
   const filteredDataProducts = computed<ProductSimple[]>(() => {
     const { category, subcategory, searched } = route.params;
-    const productsData = RAWDataProducts.value;
+    const productsData = DataProducts.value;
     const searchedTerms = slugify(String(searched || ''))
     .split('-')
     .filter(word => word.length > 2)
