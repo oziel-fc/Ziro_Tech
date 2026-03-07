@@ -6,7 +6,6 @@
   import { DataProducts, isLoading } from '../../utils/useProductStore';
 
   const route = useRoute()
-  const RAWDataProducts = DataProducts
 
   interface ProductSimple {
     shopee: {

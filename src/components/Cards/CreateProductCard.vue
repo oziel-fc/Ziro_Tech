@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import { RouterLink } from 'vue-router';
   import { slugify } from '../../utils/slugify';
+  import { formatBRL } from '../../utils/formatBRL';
 
   const props = defineProps<{
     title: string,
@@ -19,7 +20,7 @@
         </div>
         <div :class="$style.product_info">
           <span :id="$style.title">{{ title }}</span>
-          <span :id="$style.price">{{ price }}</span>
+          <span :id="$style.price">{{ formatBRL(price) }}</span>
         </div>
       </div>        
     </RouterLink>

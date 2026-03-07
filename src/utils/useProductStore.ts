@@ -20,6 +20,7 @@ interface BaseMarketplaceProduct {
   description: string
   images: string[]
   link: string
+  stock: number
 }
 
 /* =========================
@@ -27,7 +28,6 @@ interface BaseMarketplaceProduct {
 ========================= */
 
 interface ShopeeProduct extends BaseMarketplaceProduct {
-  stock: number
   variation: Variation
 }
 
