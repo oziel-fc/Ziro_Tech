@@ -2,7 +2,7 @@
 <script setup lang="ts">
   import { ref, nextTick } from 'vue';
   import { RouterLink } from 'vue-router';
-  import { slugify } from '../../utils/slugify';
+  import { slugify } from '../../utils/formatters';
 
   type Subcategory = {
     name: string,

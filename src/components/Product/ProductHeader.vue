@@ -2,8 +2,8 @@
     import { useRoute } from 'vue-router'
     import { DataProducts } from '../../utils/useProductStore'
     import { computed, watch } from 'vue'
-    import { slugify } from '../../utils/slugify'
-    import { formatBRL } from '../../utils/formatBRL'
+    import { slugify } from '../../utils/formatters'
+    import { formatBRL, capitalize } from '../../utils/formatters'
     
 
     const route = useRoute()
@@ -53,14 +53,25 @@
         <h1 :id="$style.title">
             {{ product?.shopee?.name }}
         </h1>
-        <!-- Stock Verification and Style-->
-        <span v-if="product" :style="{ color: stock > 0 ? 'green' : 'red', fontWeight: '700' }">
+        <!-- Stock Verification and Style -->
+        <span :id="$style.disponibility" :style="{ color: stock > 0 ? 'green' : 'red' }">
             {{ stock > 0 ? 'PRODUTO DISPONÍVEL' : 'PRODUTO INDISPONÍVEL' }}
         </span>
 
         <span :id="$style.price">
             {{ formatBRL(product?.shopee?.price) }}
         </span>
+
+        <div :class="$style.brand_info">
+            <span :id="$style.brand">
+                Marca: 
+                <span><strong>{{ capitalize(product?.shopee?.brand || product?.olx?.brand || '') }}</strong></span>
+            </span>
+            <span :id="$style.model">
+                Modelo: 
+                <strong><span>{{ product?.shopee?.model || product?.olx?.model }}</span></strong>
+            </span>
+        </div>
     </div>
   </div>
 </template>
@@ -104,5 +115,13 @@
 #price {
     font-size: 20px;
     font-weight: 800;
+}
+#disponibility {
+    font-weight: 700;
+    margin-top: 9px;
+}
+.brand_info {
+    display: flex;
+    justify-content: space-between;    
 }
 </style>

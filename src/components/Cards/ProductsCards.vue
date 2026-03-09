@@ -2,7 +2,7 @@
   import { useRoute } from 'vue-router';
   import CreateProductCard from './CreateProductCard.vue';
   import { nextTick, computed, watch } from 'vue';
-  import { slugify } from '../../utils/slugify';
+  import { slugify } from '../../utils/formatters';
   import { DataProducts, isLoading } from '../../utils/useProductStore';
 
   const route = useRoute()

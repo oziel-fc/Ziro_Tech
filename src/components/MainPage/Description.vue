@@ -2,7 +2,7 @@
   import { computed } from 'vue'
   import { useRoute } from 'vue-router'
   import dataCategories from '../../data/descriptionCategories'
-  import { slugify } from '../../utils/slugify'
+  import { slugify } from '../../utils/formatters'
   import { useSearchStore } from '../../utils/useSearchStore'
 
   const route = useRoute()
