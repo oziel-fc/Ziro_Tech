@@ -56,6 +56,9 @@ ul, li {
 a {
   text-decoration: none;
 }
+a:visited, a:active {
+  color: inherit;
+}
 
 button {
   margin: 0;

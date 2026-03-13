@@ -5,9 +5,7 @@ import { ref } from "vue"
 ========================= */
 
 interface Variation {
-  [variationName: string]: {
-    [optionName: string]: string
-  }
+  [key: string]: string[]
 }
 
 interface BaseMarketplaceProduct {
