@@ -31,3 +31,11 @@ export function capitalize(text: string): string {
   const trimmed = text.trim()
   return trimmed.charAt(0).toUpperCase() + trimmed.slice(1)
 }
+
+export const ensureTrailingColon = (text) => {
+  if (!text) return '';
+
+  const trimmedText = text.trim();
+
+  return trimmedText.endsWith(':') ? trimmedText : `${trimmedText}:`;
+};
