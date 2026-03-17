@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { slugify } from './formatters'
+import { slugify } from './utils'
 
 export const useSearchStore = defineStore('search', () => {
     const searchQuery = ref<String | null>(null)

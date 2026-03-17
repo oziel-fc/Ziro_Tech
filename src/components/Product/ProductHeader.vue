@@ -2,8 +2,8 @@
     import { useRoute } from 'vue-router'
     import { DataProducts } from '../../utils/useProductStore'
     import { computed, ref, watchEffect, onMounted } from 'vue'
-    import { slugify } from '../../utils/formatters'
-    import { formatBRL, capitalize, ensureTrailingColon } from '../../utils/formatters'
+    import { slugify } from '../../utils/utils'
+    import { formatBRL, capitalize, ensureTrailingColon } from '../../utils/utils'
     import { RouterLink } from 'vue-router'
     
 
@@ -45,6 +45,9 @@
 
         return product.value.olx?.brand ?? ''
     })
+    
+    // Variation
+    const selectedVariation = ref(0)
 
     const variation = computed(() => {
         if (!product.value) {
@@ -70,8 +73,15 @@
         return product.value.olx?.images ?? []
     })
 
-    // Carousel Config
+    const variationImageIndexes = computed(() => {
+        const options = Object.values(variation.value).flat()
 
+        const initialIndex = productImages.value.length - options.length
+
+        return Array.from({ length: options.length }, (_, i) => initialIndex + i)
+    })
+    
+    // Carousel Config
     let currentImage = ref<number>(0)
 
     const toggleCurrentImage = (imageIndex: number) => {
@@ -109,9 +119,10 @@
         // Sempre que o objeto product ou shopee ou variation mudar, isso dispara
         // console.log('Estado atual da variação:', product.value?.shopee?.variation);
         // console.log(productImages);
-        console.log(currentImage.value);
-        console.log(carouselWidth.value*currentImage.value)
-        console.log(valueScrollThumb.value)
+        // console.log(currentImage.value);
+        // console.log(carouselWidth.value*currentImage.value)
+        // console.log(valueScrollThumb.value)
+        console.log(variationImageIndexes.value)
     });
 </script>
 
@@ -183,32 +194,43 @@
             </span>
         </div>
 
+        <hr :style="{
+            border: 'none',
+            height: '1px',
+            backgroundColor: '#b3b3b3',
+            width: '100%',
+            margin: '10px 0'
+        }">
+
         <!-- Variation -->
         <div v-if="Object.keys(variation)[0] != 'None'">
             <div :class="$style.variations" v-for="[typeVariation, variationOptions] in Object.entries(variation)" :key="typeVariation">
                 
                 
-                <span :style="{width: '100px'}">
+                <span>
                     {{ ensureTrailingColon(typeVariation) }}
                 </span>
-                <span>{{ variationOptions[0] }}</span>
+                <span :style="{marginLeft: '5px'}"><strong>{{ variationOptions[selectedVariation] }}</strong></span>
                 
-                <div :class="$style.variation_option" :style="{width: '500px'}">
-                    
-                    <!-- <button :class="$style.option" 
-                            v-for="(option, indexOption) in variationOptions" 
-                            :key="option" 
-                            @click="toggleCurrentImage((productImages.length - variationOptions.length) + indexOption)">
+                <div :class="$style.variation_option">
+                    <button v-for="(imageRelatedIndex, optionRelatedIndex) in variationImageIndexes"
+                        :class="$style.option"
+                        :style="selectedVariation === optionRelatedIndex ? 'border: 2px solid black' : ''"
+                        @click="toggleCurrentImage(imageRelatedIndex), selectedVariation = optionRelatedIndex">
 
-                        <img src="" alt="">
-                        <span>
-                            {{ option }}
-                        </span>
-                    </button> -->
-                    
+                        <img :src="productImages[imageRelatedIndex]">
+                    </button>
                 </div>
-
             </div>
+        </div>
+
+        <!-- Specifications -->
+        <div :class="$style.viewport_specs">
+
+        </div>
+
+        <div :class="$style.buy_button">
+            
         </div>
     </div>
   </div>
@@ -291,30 +313,42 @@
 }
 #disponibility {
     font-weight: 700;
-    margin-top: 9px;
+    margin-top: 10px;
 }
 .brand_info {
+    margin-top: 5px;
     display: flex;
     justify-content: space-between;    
 }
 .variations {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Divide em duas colunas iguais (frações) */
-    gap: 10px;
+    /* display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px; */
 }
 .variation_option {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); 
+    width: 100%;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
     gap: 5px;
+    /* display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 5px; */
 }
 .option {
-    min-height: 40px;
-    border-radius: 2px;
-    border: 1px solid #b3b3b3;
+    margin-top: 8px;
+    height: 45px;
+    width: 45px;
+    border-radius: 4px;
+    border: 2px solid #b3b3b3;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #e3e3e3;
+}
+.option img {
+    width: 100%;
+    height: 100%;
 }
 #next_button {
     position: absolute;
@@ -354,5 +388,17 @@
     transition: fill 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
     fill: currentColor;
     font-size: 1.5rem;
+}
+
+/* Specs */
+.viewport_specs {
+    width: 100%;
+    height: 100px;
+    background-color: red;
+}
+.buy_button {
+    width: 100%;
+    height: 100px;
+    background-color: rebeccapurple;
 }
 </style>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { RouterLink } from 'vue-router';
-  import { slugify } from '../../utils/formatters';
-  import { formatBRL } from '../../utils/formatters';
+  import { slugify } from '../../utils/utils';
+  import { formatBRL } from '../../utils/utils';
 
   const props = defineProps<{
     title: string,

@@ -39,3 +39,16 @@ export const ensureTrailingColon = (text) => {
 
   return trimmedText.endsWith(':') ? trimmedText : `${trimmedText}:`;
 };
+
+function extractTechnicalSpecs(text: string): string[] {
+  const match = text.match(
+    /Especificações Técnicas:(.*?)Conteúdo da Embalagem:/s
+  )
+
+  if (!match || !match[1]) return []
+
+  return match[1]
+    .split('\n')
+    .map(item => item.replace(/•/g, '').trim())
+    .filter(item => item.length > 0)
+}
