@@ -3,7 +3,7 @@
     import { DataProducts } from '../../utils/useProductStore'
     import { computed, ref, watchEffect, onMounted } from 'vue'
     import { slugify } from '../../utils/utils'
-    import { formatBRL, capitalize, ensureTrailingColon } from '../../utils/utils'
+    import { formatBRL, capitalize, ensureTrailingColon, extractTechnicalSpecs } from '../../utils/utils'
     import { RouterLink } from 'vue-router'
     
 
@@ -115,14 +115,25 @@
         }
     }
 
+    // Specifications
+
+    const specs = computed(() => {
+        if (!product.value) {
+            return ''
+        }
+        if (product.value.shopee) {
+            return extractTechnicalSpecs(product.value.shopee.description)
+        }
+        if (product.value.olx) {
+            return extractTechnicalSpecs(product.value.olx.description)
+        }
+        return ''
+    })
+    
+
     watchEffect(() => {
-        // Sempre que o objeto product ou shopee ou variation mudar, isso dispara
-        // console.log('Estado atual da variação:', product.value?.shopee?.variation);
-        // console.log(productImages);
-        // console.log(currentImage.value);
-        // console.log(carouselWidth.value*currentImage.value)
-        // console.log(valueScrollThumb.value)
-        console.log(variationImageIndexes.value)
+        // console.log(variationImageIndexes.value)
+        console.log(specs.value)
     });
 </script>
 
@@ -226,11 +237,51 @@
 
         <!-- Specifications -->
         <div :class="$style.viewport_specs">
-
+            <span>O que você precisa saber sobre este produto:</span>
+            <ul>
+                <li v-for="(spec, index) in specs.slice(0, 12)" :key="index">
+                    {{ spec }}
+                </li>
+            </ul>
         </div>
 
-        <div :class="$style.buy_button">
-            
+        <hr :style="{
+            border: 'none',
+            height: '1px',
+            backgroundColor: '#b3b3b3',
+            width: '100%',
+            margin: '20px 0'
+        }">
+
+        <div :class="$style.viewport_buy_button">
+
+            <!-- Shopee Button -->
+            <div v-if="product?.shopee" :class="[$style.buy_button, $style.shopee_button]">
+                <a :href="product.shopee.link" :class="$style.viewport_elem_anim" target="_blank" rel="noopener noreferrer">
+                    <div :class="$style.left_elem_anim">
+                        <img src="../../assets/shopping_cart.png" alt="Shopping Cart" :style="{height: '35px', marginLeft: '5px'}">
+                        <span>Comprar</span>
+                    </div>
+                    <div :class="$style.right_elem_anim">
+                        <img src="../../assets/shopee.png" alt="Shopee Icon" :style="{height: '35px'}">
+                        <span>Shopee</span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- OLX Button -->
+            <div v-if="product?.olx" :class="[$style.buy_button, $style.olx_button]">
+                <a :href="product.olx.link" :class="$style.viewport_elem_anim" target="_blank" rel="noopener noreferrer">
+                    <div :class="$style.left_elem_anim">
+                        <img src="../../assets/shopping_cart.png" alt="Shopping Cart" :style="{height: '35px', marginLeft: '5px'}">
+                        <span>Comprar</span>
+                    </div>
+                    <div :class="$style.right_elem_anim">
+                        <img src="../../assets/olx.png" alt="OLX Icon" :style="{height: '35px'}">
+                        <span>Olx</span>
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
   </div>
@@ -321,9 +372,7 @@
     justify-content: space-between;    
 }
 .variations {
-    /* display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px; */
+    
 }
 .variation_option {
     width: 100%;
@@ -331,9 +380,6 @@
     display: flex;
     flex-direction: row;
     gap: 5px;
-    /* display: grid;
-    grid-template-columns: repeat(3, 1fr); 
-    gap: 5px; */
 }
 .option {
     margin-top: 8px;
@@ -393,12 +439,75 @@
 /* Specs */
 .viewport_specs {
     width: 100%;
-    height: 100px;
-    background-color: red;
+    height: 300px;
+    /* border: 1px solid red; */
+    margin-top: 10px;
+}
+.viewport_specs span {
+    font-weight: 700;
+}
+.viewport_specs ul {
+    margin-top: 5px;
+}
+.viewport_buy_button {
+
 }
 .buy_button {
+    position: relative;
+    cursor: pointer;
     width: 100%;
-    height: 100px;
-    background-color: rebeccapurple;
+    height: 70px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: end;
+    overflow: hidden;
+}
+.viewport_elem_anim {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 200%;
+    position: absolute;
+    transition: transform 1s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.buy_button:hover .viewport_elem_anim {
+    transform: translateX(50%);
+}
+.right_elem_anim {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.left_elem_anim {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.buy_button span{
+    display: inline-block;
+    color: #F2F3F4;
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+.shopee_button {
+    background-color: #ee4d2d;
+}
+.olx_button {
+    margin-top: 10px;
+    background-color: #6e0ad6;
+}
+
+.viewport_specs li {
+    list-style-position: inside;
+}
+.viewport_specs li::marker {
+  content: "• ";
+  color: black;
 }
 </style>

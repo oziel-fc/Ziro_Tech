@@ -40,15 +40,26 @@ export const ensureTrailingColon = (text) => {
   return trimmedText.endsWith(':') ? trimmedText : `${trimmedText}:`;
 };
 
-function extractTechnicalSpecs(text: string): string[] {
-  const match = text.match(
-    /Especificações Técnicas:(.*?)Conteúdo da Embalagem:/s
+export function extractTechnicalSpecs(text: string): string[] {
+  if (!text || typeof text !== 'string') return []
+
+  const lines = text.split('\n').map(line => line.trim())
+
+  const startIndex = lines.findIndex(line =>
+    line.toLowerCase().includes('especificações técnicas')
   )
 
-  if (!match || !match[1]) return []
+  const endIndex = lines.findIndex(line =>
+    line.toLowerCase().includes('conteúdo da embalagem')
+  )
 
-  return match[1]
-    .split('\n')
-    .map(item => item.replace(/•/g, '').trim())
-    .filter(item => item.length > 0)
+  if (startIndex === -1 || endIndex === -1) return []
+
+  const specsLines = lines.slice(startIndex + 1, endIndex)
+
+  const cleanedSpecs = specsLines
+    .map(line => line.replace(/•/g, '').trim())
+    .filter(line => line.length > 0)
+
+  return cleanedSpecs
 }
