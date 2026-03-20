@@ -1,9 +1,11 @@
 <script setup>
-    import ProductHeader from '../Product/ProductHeader/ProductHeader.vue';
+  import BreadCrumb from '../Product/BreadCrumb.vue';
+  import ProductHeader from '../Product/ProductHeader/ProductHeader.vue';
 </script>
 
 <template>
   <section :class="$style.product">
+    <BreadCrumb/>
     <ProductHeader/>
   </section>
 </template>
@@ -15,5 +17,6 @@
     justify-content: center;
     align-items: center;
     padding-top: 24px;
+    flex-direction: column;
 }
 </style>

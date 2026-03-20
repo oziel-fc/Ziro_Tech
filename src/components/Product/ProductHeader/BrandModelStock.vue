@@ -15,9 +15,12 @@
       {{ name }}
   </h1>
   <!-- Stock Verification and Style -->
-  <span :id="$style.disponibility" :style="{ color: stock > 0 ? 'green' : 'red' }">
-      {{ stock > 0 ? 'PRODUTO DISPONÍVEL' : 'PRODUTO INDISPONÍVEL' }}
-  </span>
+   <div  :id="$style.disponibility" :style="{ backgroundColor: stock > 0 ? 'green' : '#c2281f'}">
+        <span >
+            {{ stock > 0 ? 'PRODUTO DISPONÍVEL' : 'PRODUTO INDISPONÍVEL' }}
+        </span>
+   </div>
+  
 
   <span :id="$style.price">
       {{ formatBRL(price) }}
@@ -47,10 +50,16 @@
 #price {
     font-size: 20px;
     font-weight: 800;
+    margin-top: 5px;
 }
 #disponibility {
+    font-size: 14px;
     font-weight: 700;
     margin-top: 10px;
+    width: fit-content;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 5px;
 }
 .brand_info {
     margin-top: 5px;

@@ -1,8 +1,6 @@
 <script setup lang="ts">
-    import { useRoute } from 'vue-router'
-    import { DataProducts } from '../../../utils/useProductStore'
+    import { useProduct } from '../../../utils/useProductStore'
     import { computed, ref, watchEffect } from 'vue'
-    import { slugify } from '../../../utils/utils'
     import { extractTechnicalSpecs } from '../../../utils/utils'
     import Images from './Images.vue'
     import Variations from './Variations.vue'
@@ -11,20 +9,9 @@
     import BuyButton from './BuyButton.vue'
     
 
-    const route = useRoute()
-
     // Header Info
 
-    const product = computed(() => {
-        const id = route.params.product
-
-        const found = DataProducts.value.find(p =>
-            (p.shopee && slugify(p.shopee.name) === id) ||
-            (p.olx && slugify(p.olx.name) === id)
-        )
-
-        return found
-    })
+    const { product } = useProduct()
     
     // Variation
     const selectedVariation = ref(0)
@@ -53,6 +40,7 @@
         return product.value.olx?.images ?? []
     })
 
+    // Stores the location of the variation index images in the product images.
     const variationImageIndexes = computed(() => {
         const options = Object.values(variation.value).flat()
 
@@ -72,7 +60,6 @@
     }
 
     // Specifications
-
     const specs = computed(() => {
         if (!product.value) {
             return ''

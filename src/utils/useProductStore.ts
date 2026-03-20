@@ -1,10 +1,12 @@
-import { ref } from "vue"
+import { ref, computed } from "vue"
+import { slugify } from "./utils"
+import { useRoute } from "vue-router"
 
 /* =========================
   Types
 ========================= */
 
-interface Variation {
+export interface Variation {
   [key: string]: string[]
 }
 
@@ -74,4 +76,19 @@ export const loadData = async () => {
   } finally {
     isLoading.value = false
   }
+}
+
+export function useProduct() {
+    const route = useRoute()
+
+    const product = computed(() => {
+        const id = route.params.product
+
+        return DataProducts.value.find(p =>
+            (p.shopee && slugify(p.shopee.name) === id) ||
+            (p.olx && slugify(p.olx.name) === id)
+        )
+    })
+
+    return { product }
 }
