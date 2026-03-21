@@ -1,12 +1,14 @@
 <script setup>
   import BreadCrumb from '../Product/BreadCrumb.vue';
   import ProductHeader from '../Product/ProductHeader/ProductHeader.vue';
+  import ProductDescription from '../Product/ProductDescription.vue';
 </script>
 
 <template>
   <section :class="$style.product">
     <BreadCrumb/>
     <ProductHeader/>
+    <ProductDescription/>
   </section>
 </template>
 
