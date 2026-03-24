@@ -74,6 +74,7 @@
           :title="product.shopee?.name || 'Carregando...'" 
           :price="product.shopee?.price || ''" 
           :img_path="product.shopee?.images[0] || ''"
+          :size-width="'330px'"
         />
       </div>
 

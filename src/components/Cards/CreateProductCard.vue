@@ -6,7 +6,8 @@
   const props = defineProps<{
     title: string,
     img_path: string,
-    price: string
+    price: string,
+    sizeWidth: string,
   }>()
 
 </script>
@@ -14,7 +15,7 @@
 <template>
   <div :class="$style.product">
     <RouterLink :to="`/p/${slugify(title)}`">
-      <div :class="$style.product_card">
+      <div :class="$style.product_card" :style="{width: `${sizeWidth}`}">
         <div :class="$style.product_img">
           <img :src="img_path" :alt="title">
         </div>
@@ -34,7 +35,7 @@
   }
   .product_card {
     width: 330px;
-    height: 415px;
+    aspect-ratio: 1 / 1.259;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -45,8 +46,8 @@
 ;
   }
   .product_img {
-    height: 330px;
-    width: 330px;
+    width: 100%;
+    aspect-ratio: 1 / 1;
     display: flex;
     justify-content: center;
     align-items: center;

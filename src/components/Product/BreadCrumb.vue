@@ -58,7 +58,7 @@
     <ol>
         <!-- Home -->
         <li>
-            <RouterLink to="/">
+            <RouterLink to="/" :style="{ textDecoration: 'none', color: 'inherit'}">
                 <span>Home</span>
             </RouterLink>
         </li>
