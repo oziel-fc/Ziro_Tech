@@ -8,6 +8,7 @@
     img_path: string,
     price: string,
     sizeWidth: string,
+    transformXFunction?: number
   }>()
 
 </script>
@@ -15,7 +16,7 @@
 <template>
   <div :class="$style.product">
     <RouterLink :to="`/p/${slugify(title)}`">
-      <div :class="$style.product_card" :style="{width: `${sizeWidth}`}">
+      <div :class="$style.product_card" :style="{width: `${sizeWidth}`, transform: `translateX(${transformXFunction}px)`}">
         <div :class="$style.product_img">
           <img :src="img_path" :alt="title">
         </div>
@@ -43,6 +44,7 @@
     border-radius: 5px;
     overflow: hidden;
     background-color: #252525;
+    transition: transform 1s cubic-bezier(0.25, 0.8, 0.25, 1)
 ;
   }
   .product_img {

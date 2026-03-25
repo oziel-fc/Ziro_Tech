@@ -36,7 +36,7 @@
     }
   )
   watchEffect(() => {
-    console.log(scrollPositions)
+    // console.log(scrollPositions)
   })
 </script>
 
