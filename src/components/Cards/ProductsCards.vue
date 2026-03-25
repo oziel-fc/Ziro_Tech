@@ -13,6 +13,7 @@
       category: string;
       subcategory: string;
       price: string;
+      stock: number;
       images: string[];
     } | null;
   }
@@ -72,9 +73,11 @@
         <CreateProductCard
         v-for="product in filteredDataProducts"
           :title="product.shopee?.name || 'Carregando...'" 
-          :price="product.shopee?.price || ''" 
+          :price="product.shopee?.price || ''"
+          :stock="product.shopee?.stock || 0"
           :img_path="product.shopee?.images[0] || ''"
           :size-width="'330px'"
+          :show-disponibility-tag="true"
         />
       </div>
 

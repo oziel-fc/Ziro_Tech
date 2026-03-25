@@ -7,8 +7,10 @@
     title: string,
     img_path: string,
     price: string,
+    stock: number,
     sizeWidth: string,
-    transformXFunction?: number
+    transformXFunction?: number,
+    showDisponibilityTag?: boolean
   }>()
 
 </script>
@@ -22,7 +24,10 @@
         </div>
         <div :class="$style.product_info">
           <span :id="$style.title">{{ title }}</span>
-          <span :id="$style.price">{{ formatBRL(price) }}</span>
+          <div :class="$style.price_stock">
+            <span :id="$style.price">{{ formatBRL(price) }}</span>
+            <span :id="$style.stock" v-if="showDisponibilityTag && stock === 0">INDISPONÍVEL</span>
+          </div>
         </div>
       </div>        
     </RouterLink>
@@ -76,8 +81,24 @@
     overflow: hidden;            /* Esconde o que passar da 2ª linha */
     text-overflow: ellipsis;
   }
+  .price_stock {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: end;
+  }
   #price {
     color: white;
     font-size: 16px;
+    
+  }
+  #stock {
+    font-size: 12px;
+    font-weight: 700;
+    background-color: rgb(194, 40, 31);
+    padding: 0px 5px;
+    border-radius: 5px;
+    height: 20px;
   }
 </style>

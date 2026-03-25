@@ -12,6 +12,7 @@
         category: string;
         subcategory: string;
         price: string;
+        stock: number;
         images: string[];
         } | null;
     }
@@ -75,7 +76,7 @@
     }
 
     watchEffect(() => {
-        // console.log("Valor Scroll: ", valueScrollThumb.value)
+        console.log("Valor Scroll: ", valueScrollThumb.value)
     })
     
 </script>
@@ -99,6 +100,7 @@
                 v-for="product in relatedProduct"
                 :title="product.shopee?.name || ''"
                 :price="''" 
+                :stock="product.shopee?.stock || 0"
                 :img_path="product.shopee?.images[0] || ''"
                 :size-width="`${sizeWidthCard}px`"
                 :transform-x-function="valueScrollThumb"
