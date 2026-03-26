@@ -26,7 +26,8 @@
           <span :id="$style.title">{{ title }}</span>
           <div :class="$style.price_stock">
             <span :id="$style.price">{{ formatBRL(price) }}</span>
-            <span :id="$style.stock" v-if="showDisponibilityTag && stock === 0">INDISPONÍVEL</span>
+            <span :id="$style.stock" v-if="showDisponibilityTag && stock === 0" :style="{backgroundColor: 'rgb(194, 40, 31)'}">INDISPONÍVEL</span>
+            <span :id="$style.stock" v-if="showDisponibilityTag && stock > 0" :style="{backgroundColor: 'green'}">DISPONÍVEL</span>
           </div>
         </div>
       </div>        
@@ -96,7 +97,6 @@
   #stock {
     font-size: 12px;
     font-weight: 700;
-    background-color: rgb(194, 40, 31);
     padding: 0px 5px;
     border-radius: 5px;
     height: 20px;

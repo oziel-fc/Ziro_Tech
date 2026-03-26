@@ -11,7 +11,7 @@ export function slugify(text: string): string {
 export function formatBRL(price?: string): string {
   if (!price) return ''
 
-  // remove tudo que não for número ou vírgula
+  // Remove all, except string 
   const numeric = price.replace(/[^\d,]/g, '')
 
   let [integer, decimal] = numeric.split(',')
@@ -32,6 +32,7 @@ export function capitalize(text: string): string {
   return trimmed.charAt(0).toUpperCase() + trimmed.slice(1)
 }
 
+// Guarantee the text will end with ':'
 export const ensureTrailingColon = (text) => {
   if (!text) return '';
 

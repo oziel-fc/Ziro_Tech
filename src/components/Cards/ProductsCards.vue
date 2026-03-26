@@ -18,7 +18,17 @@
     } | null;
   }
 
+  function orderByStock(products: ProductSimple[]): ProductSimple[] {
+    return [...products].sort((a, b) => {
+      const hasStockA = (a.shopee?.stock ?? 0) > 0
+      const hasStockB = (b.shopee?.stock ?? 0) > 0
 
+      if (hasStockA === hasStockB) return 0
+      return hasStockA ? -1 : 1
+    })
+  }
+
+  // Return the product if is equal of the route
   const filteredDataProducts = computed<ProductSimple[]>(() => {
     const { category, subcategory, searched } = route.params;
     const productsData = DataProducts.value;
@@ -26,28 +36,43 @@
     .split('-')
     .filter(word => word.length > 2)
 
-    return productsData.filter(product => {
-      const productNameWordlist = slugify(product.shopee?.name || '')
-      const productSubcategory = slugify(product.shopee?.subcategory || '');
-      const productCategory = slugify(product.shopee?.category || '');
+    return orderByStock(
+      productsData.filter(product => {
+        const productNameWordlist = slugify(product.shopee?.name || '')
+        const productSubcategory = slugify(product.shopee?.subcategory || '')
+        const productCategory = slugify(product.shopee?.category || '')
 
-      // Check if route search exists and compare what are searched with product
-      if (searchedTerms.length > 0) {
-        if (searchedTerms.some(item => productNameWordlist.includes(item) || item == productCategory || item == productSubcategory)) {
-          return true
+        // Home
+        if (route.path === '/') {
+          if (product.shopee?.stock) {
+            return true
+          }
         }
-      }
 
+        // Search Cards
+        if (searchedTerms.length > 0) {
+          if (searchedTerms.some(item =>
+            productNameWordlist.includes(item) ||
+            item == productCategory ||
+            item == productSubcategory
+          )) {
+            return true
+          }
+        }
 
-      if (subcategory && productSubcategory === subcategory) return true;
-      if (!subcategory && productCategory === category) return true;
-      
-     
-      
-      return false;
-    });
+        // Subcategory Cards
+        if (subcategory && productSubcategory === subcategory) return true
+        
+        // Category Cards
+        if (!subcategory && productCategory === category) return true
+
+        return false
+      })
+    )
   });
 
+
+  // Verify the route
   watch(
     () => route.fullPath,
     async () => {
@@ -57,7 +82,7 @@
         await nextTick(); 
         
         setTimeout(() => {
-            isLoading.value = false;
+          isLoading.value = false;
         }, 200); 
     },
     { immediate: true }
