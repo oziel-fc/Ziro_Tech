@@ -4,29 +4,22 @@
   import { nextTick, computed, watch } from 'vue';
   import { slugify } from '../../utils/utils';
   import { DataProducts, isLoading } from '../../utils/useProductStore';
+  import { type ProductSimple } from '../../utils/utils';
+  import { sortProducts } from '../../utils/useSortProducts';
+  import { useSort } from '../../utils/composables/currentSortType';
 
   const route = useRoute()
+  const { currentSortType } = useSort()
 
-  interface ProductSimple {
-    shopee: {
-      name: string;
-      category: string;
-      subcategory: string;
-      price: string;
-      stock: number;
-      images: string[];
-    } | null;
-  }
+  // function orderProducts(products: ProductSimple[]): ProductSimple[] {
+  //   return [...products].sort((a, b) => {
+  //     const hasStockA = (a.shopee?.stock ?? 0) > 0
+  //     const hasStockB = (b.shopee?.stock ?? 0) > 0
 
-  function orderByStock(products: ProductSimple[]): ProductSimple[] {
-    return [...products].sort((a, b) => {
-      const hasStockA = (a.shopee?.stock ?? 0) > 0
-      const hasStockB = (b.shopee?.stock ?? 0) > 0
-
-      if (hasStockA === hasStockB) return 0
-      return hasStockA ? -1 : 1
-    })
-  }
+  //     if (hasStockA === hasStockB) return 0
+  //     return hasStockA ? -1 : 1
+  //   })
+  // }
 
   // Return the product if is equal of the route
   const filteredDataProducts = computed<ProductSimple[]>(() => {
@@ -36,7 +29,7 @@
     .split('-')
     .filter(word => word.length > 2)
 
-    return orderByStock(
+    return sortProducts(
       productsData.filter(product => {
         const productNameWordlist = slugify(product.shopee?.name || '')
         const productSubcategory = slugify(product.shopee?.subcategory || '')
@@ -67,7 +60,8 @@
         if (!subcategory && productCategory === category) return true
 
         return false
-      })
+      
+      }), currentSortType.value
     )
   });
 

@@ -3,19 +3,10 @@
     import { DataProducts } from '../../utils/useProductStore';
     import { useProduct } from '../../utils/useProductStore';
     import CreateProductCard from '../Cards/CreateProductCard.vue';
+    import { type ProductSimple } from '../../utils/utils';
 
     const { product } = useProduct()
 
-    interface ProductSimple {
-        shopee: {
-        name: string;
-        category: string;
-        subcategory: string;
-        price: string;
-        stock: number;
-        images: string[];
-        } | null;
-    }
 
     const relatedProduct = computed<ProductSimple[]>(() => {
         

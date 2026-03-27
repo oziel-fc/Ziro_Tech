@@ -11,8 +11,9 @@ export function slugify(text: string): string {
 export function formatBRL(price?: string): string {
   if (!price) return ''
 
-  // Remove all, except string 
-  const numeric = price.replace(/[^\d,]/g, '')
+  const firstPrice = price.split('-')[0]?.trim() || ''
+
+  const numeric = firstPrice.replace(/[^\d,]/g, '')
 
   let [integer, decimal] = numeric.split(',')
 
@@ -64,3 +65,14 @@ export function extractTechnicalSpecs(text: string): string[] {
 
   return cleanedSpecs
 }
+
+export interface ProductSimple {
+    shopee: {
+      name: string;
+      category: string;
+      subcategory: string;
+      price: string;
+      stock: number;
+      images: string[];
+    } | null;
+  }
