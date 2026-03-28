@@ -4,12 +4,10 @@
   import dataCategories from '../../data/descriptionCategories'
   import { slugify } from '../../utils/utils'
   import { useSearchStore } from '../../utils/useSearchStore'
-  import { useSort } from '../../utils/composables/currentSortType'
   import SortProducts from './SortProducts.vue'
 
   const route = useRoute()
   const searchedItem = useSearchStore()
-  const { currentSortType } = useSort()
 
 
   // Function who changes every time with the change of the route
