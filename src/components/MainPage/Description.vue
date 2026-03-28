@@ -5,6 +5,7 @@
   import { slugify } from '../../utils/utils'
   import { useSearchStore } from '../../utils/useSearchStore'
   import { useSort } from '../../utils/composables/currentSortType'
+  import SortProducts from './SortProducts.vue'
 
   const route = useRoute()
   const searchedItem = useSearchStore()
@@ -65,20 +66,40 @@
 
 <template>
   <section :class="$style.description" v-if="showTitle">
-    <div :class="$style.desc_title" v-if="searchedItem.searchQuery === null">
-      <h1 :class="$style.desc_text">
-        {{ showTitle }}
-      </h1>
-      <p>
-        {{ showDescription }}
-      </p>
+    <div :class="$style.viewport_description" v-if="searchedItem.searchQuery === null">
+      <div :class="$style.organize_elements">
+        
+        <div :class="$style.text_elements">
+          <h1 :id="$style.desc_text">
+            {{ showTitle }}
+          </h1>
+          <p>
+            {{ showDescription }}
+          </p>
+        </div>
+        
+        <SortProducts/>
+
+      </div>
+      
+
+      <hr :style="{
+        border: 'none',
+        height: '1px',
+        backgroundColor: '#b3b3b3',
+        width: '100%',
+        margin: '10px 0'
+      }">
+
+      
     </div>
 
-    <div :class="$style.desc_title" v-if="searchedItem.searchQuery != null">
+    <div :class="$style.viewport_description" v-if="searchedItem.searchQuery != null">
       <h1 :class="$style.searched_text">
         Você buscou por: <strong>{{ showTitle }}</strong>
       </h1>
     </div>
+
   </section>
 </template>
 
@@ -89,13 +110,22 @@
     justify-content: center;
     align-items: center;
   }
-  .desc_title {
+  .viewport_description {
     width: var(--default-page-width);
     padding: 18px 0px;
     margin-top: 10px;
-    border-bottom: 1px solid rgb(193 193 193);
   }
-  .desc_text {
+  .organize_elements {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .text_elements {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+  }
+  #desc_text {
     color: black;
     font-size: 23px;
     margin: 8px 0px;

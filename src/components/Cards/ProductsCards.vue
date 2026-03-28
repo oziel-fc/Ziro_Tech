@@ -11,15 +11,6 @@
   const route = useRoute()
   const { currentSortType } = useSort()
 
-  // function orderProducts(products: ProductSimple[]): ProductSimple[] {
-  //   return [...products].sort((a, b) => {
-  //     const hasStockA = (a.shopee?.stock ?? 0) > 0
-  //     const hasStockB = (b.shopee?.stock ?? 0) > 0
-
-  //     if (hasStockA === hasStockB) return 0
-  //     return hasStockA ? -1 : 1
-  //   })
-  // }
 
   // Return the product if is equal of the route
   const filteredDataProducts = computed<ProductSimple[]>(() => {
