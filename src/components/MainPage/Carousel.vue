@@ -1,6 +1,7 @@
 <script setup lang="ts">
     import { ref, onMounted, onUnmounted } from 'vue'
     import { RouterLink } from 'vue-router'
+    import { getWidthOf } from '../../utils/useElementWidth'
 
     const carousel_items = [{
             img_path: "/src/assets/carousel/phone_headset.png",
@@ -22,6 +23,7 @@
     let currentBanner = ref(1)
     const lenBanners = carousel_items.length
     const carouselMainDiv = ref<HTMLElement | null>(null); // Taking the value of referenced object
+    const carouselWidth = getWidthOf(carouselMainDiv)
 
     const changeBanner = (step) => {
         if (step == 1) {
@@ -72,7 +74,7 @@
     
 
     <div :class="$style.carousel_slides"
-    :style="{width: `calc(100% * ${lenBanners})`, transform: `translateX(calc(${carouselMainDiv != null ? carouselMainDiv.offsetWidth : 0}px * -${currentBanner - 1}))`}"> 
+    :style="{width: `calc(100% * ${lenBanners})`, transform: `translateX(calc(${carouselMainDiv != null ? carouselWidth : 0}px * -${currentBanner - 1}))`}"> 
         <div
             v-for="item in carousel_items"
             :class="$style.banner_image">

@@ -1,5 +1,6 @@
 <script setup lang="ts">
     import { ref,onMounted } from 'vue';
+import { getWidthOf } from '../../../utils/useElementWidth';
     
     const props = defineProps<{
         currentImage: number
@@ -12,18 +13,7 @@
     // Carousel Config
 
     const carouselRef = ref(null);
-    const carouselWidth = ref(0); 
-
-    onMounted(() => {
-        const observer = new ResizeObserver((entries) => {
-            for (let entry of entries) {
-            carouselWidth.value = entry.contentRect.width;
-            }
-        });
-            if (carouselRef.value) {
-                observer.observe(carouselRef.value);
-            }
-    });
+    const carouselWidth = getWidthOf(carouselRef)
 
     const valueScrollThumb = ref(0)
     const widthThumbElement = ref(110)
