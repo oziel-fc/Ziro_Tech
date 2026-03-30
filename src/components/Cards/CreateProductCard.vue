@@ -20,7 +20,7 @@
     <RouterLink :to="`/p/${slugify(title)}`">
       <div :class="$style.product_card" :style="{width: `${sizeWidth}`, transform: `translateX(${transformXFunction}px)`}">
         <div :class="$style.product_img">
-          <img :src="img_path" :alt="title">
+          <img :src="img_path" :alt="title" :loading="'lazy'">
         </div>
         <div :class="$style.product_info">
           <span :id="$style.title">{{ title }}</span>

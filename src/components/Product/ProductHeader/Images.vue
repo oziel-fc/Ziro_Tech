@@ -1,6 +1,6 @@
 <script setup lang="ts">
-    import { ref,onMounted } from 'vue';
-import { getWidthOf } from '../../../utils/useElementWidth';
+    import { ref } from 'vue';
+    import { getWidthOf } from '../../../utils/useElementWidth';
     
     const props = defineProps<{
         currentImage: number
@@ -46,7 +46,7 @@ import { getWidthOf } from '../../../utils/useElementWidth';
                     @click="toggleCurrentImage(imgIndex)"
                     :style="{transform: `translateX(${valueScrollThumb}px)`}">
 
-                    <img :src="imagePath" :alt="`${imgIndex}`">
+                    <img :src="imagePath" :alt="`${imgIndex}`" :loading="'lazy'">
                 </div>
             </div>
             <div v-if="productImages.length > 6">
