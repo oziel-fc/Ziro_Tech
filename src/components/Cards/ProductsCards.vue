@@ -116,7 +116,7 @@
     /* Padding between cards */
     gap: 20px; 
     width: var(--default-page-width);
-    margin-top: 60px;
+    margin-top: 30px;
   }
   .warning {
     color: black;

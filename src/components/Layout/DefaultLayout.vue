@@ -5,6 +5,7 @@
   import { loadData } from '../../utils/useProductStore';
   import { ref, watch, nextTick } from 'vue'
   import { useRoute } from 'vue-router'
+  import PageFooter from '../Footer/PageFooter.vue';
 
   onMounted(() => {
     loadData()
@@ -44,6 +45,7 @@
   <main ref="mainContainer">
     <PageHeader/>
     <RouterView/>
+    <PageFooter/>
   </main>
 </template>
 
