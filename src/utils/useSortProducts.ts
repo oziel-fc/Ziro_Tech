@@ -1,5 +1,5 @@
 import { type ProductSimple } from "./utils"
-import { type SortType } from "./composables/currentSortType"
+import { type SortType } from "./currentSortType"
 
 const parsePrice = (price?: string | number) => {
   if (!price) return 0

@@ -1,6 +1,6 @@
 <script setup lang='ts'>
-  import { useSort } from '../../utils/composables/currentSortType';
-  import { type SortType } from '../../utils/composables/currentSortType';
+  import { useSort } from '../../utils/currentSortType';
+  import { type SortType } from '../../utils/currentSortType';
   import { ref, watchEffect, computed } from 'vue'
   import { getWidthOf } from '../../utils/useElementWidth';
   import { isLoading } from '../../utils/useProductStore';

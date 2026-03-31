@@ -6,7 +6,7 @@
   import { DataProducts, isLoading } from '../../utils/useProductStore';
   import { type ProductSimple } from '../../utils/utils';
   import { sortProducts } from '../../utils/useSortProducts';
-  import { useSort } from '../../utils/composables/currentSortType';
+  import { useSort } from '../../utils/currentSortType';
 
   const route = useRoute()
   const { currentSortType } = useSort()
