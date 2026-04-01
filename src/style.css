@@ -81,7 +81,7 @@ select {
   background: none;  
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 1450px) {
   :root {
-  --default-page-width: 100%;
+  --default-page-width: 1300px;
 }}

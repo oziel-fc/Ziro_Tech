@@ -8,7 +8,7 @@
     img_path: string,
     price: string,
     stock: number,
-    sizeWidth: string,
+    sizeWidth?: string,
     transformXFunction?: number,
     showDisponibilityTag?: boolean
   }>()
@@ -18,7 +18,7 @@
 <template>
   <div :class="$style.product">
     <RouterLink :to="`/p/${slugify(title)}`">
-      <div :class="$style.product_card" :style="{width: `${sizeWidth}`, transform: `translateX(${transformXFunction}px)`}">
+      <div :class="$style.product_card" :style="{width: sizeWidth || '', transform: `translateX(${transformXFunction}px)`}">
         <div :class="$style.product_img">
           <img :src="img_path" :alt="title" :loading="'lazy'">
         </div>
@@ -72,6 +72,9 @@
     display: flex;
     flex-direction: column;
   }
+  .product_info span {
+    color: white;
+  }
   #title {
     height: 40px;
     color: white;
@@ -100,5 +103,10 @@
     padding: 0px 5px;
     border-radius: 5px;
     height: 20px;
+  }
+  @media (max-width: 1450px) {
+    .product_card {
+      width: 300px;
+    }
   }
 </style>

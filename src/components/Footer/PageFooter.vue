@@ -1,7 +1,13 @@
 <script setup lang='ts'>
-import { RouterLink } from 'vue-router';
+    import { RouterLink } from 'vue-router';
+    import { useIsMobile } from '../../utils/useIsMobile';
+    import { watchEffect } from 'vue';
 
+    const { isMobile } = useIsMobile()
 
+    watchEffect(() => {
+        // console.log(isMobile.value)
+    })
 </script>
 
 
@@ -67,7 +73,7 @@ import { RouterLink } from 'vue-router';
     height: fit-content;
 }
 .footer_logo img {
-    height: 45px;
+    height: 30px;
 }
 .about {
     height: 100%;
@@ -121,8 +127,11 @@ import { RouterLink } from 'vue-router';
 .contacts_container h1 {
     font-size: 20px;
 }
-.contacts_container h2 {
-    font-size: 20px;
+.contacts_container p {
+    font-size: 14px;
+}
+.contacts_container p:hover {
+    text-decoration: underline;
 }
 .contacts_container a[href^='http']::after {
     position: relative;

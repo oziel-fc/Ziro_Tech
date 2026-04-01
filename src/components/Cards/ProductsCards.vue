@@ -86,7 +86,6 @@
           :price="product.shopee?.price || ''"
           :stock="product.shopee?.stock || 0"
           :img_path="product.shopee?.images[0] || ''"
-          :size-width="'330px'"
           :show-disponibility-tag="true"
         />
       </div>
