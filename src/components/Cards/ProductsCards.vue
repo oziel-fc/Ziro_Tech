@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { useRoute } from 'vue-router';
   import CreateProductCard from './CreateProductCard.vue';
-  import { nextTick, computed, watch } from 'vue';
+  import { nextTick, computed, watch} from 'vue';
   import { slugify } from '../../utils/utils';
   import { DataProducts, isLoading } from '../../utils/useProductStore';
   import { type ProductSimple } from '../../utils/utils';
@@ -71,22 +71,23 @@
         }, 200); 
     },
     { immediate: true }
-);
-
-  
+  );
 </script>
 
 <template>
     <section :class="$style.products_section">
 
-      <div :class="$style.products_cards" v-if="filteredDataProducts.length > 0 && !isLoading">
+      <div :class="$style.products_cards" 
+        v-if="filteredDataProducts.length > 0 && !isLoading"
+        >
+        
         <CreateProductCard
-        v-for="product in filteredDataProducts"
-          :title="product.shopee?.name || 'Carregando...'" 
-          :price="product.shopee?.price || ''"
-          :stock="product.shopee?.stock || 0"
-          :img_path="product.shopee?.images[0] || ''"
-          :show-disponibility-tag="true"
+          v-for="product in filteredDataProducts"
+            :title="product.shopee?.name || 'Carregando...'" 
+            :price="product.shopee?.price || ''"
+            :stock="product.shopee?.stock || 0"
+            :img_path="product.shopee?.images[0] || ''"
+            :show-disponibility-tag="true"
         />
       </div>
 
@@ -140,5 +141,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  @media (max-width: 1250px) {
+    .products_cards {
+      padding: 0px 16px;
+    }
   }
 </style>

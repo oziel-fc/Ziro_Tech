@@ -41,7 +41,7 @@
     margin: 0;
   }
   .product_card {
-    width: 330px;
+    width: 100%;
     aspect-ratio: 1 / 1.259;
     display: flex;
     flex-direction: column;
@@ -103,10 +103,5 @@
     padding: 0px 5px;
     border-radius: 5px;
     height: 20px;
-  }
-  @media (max-width: 1450px) {
-    .product_card {
-      width: 300px;
-    }
   }
 </style>

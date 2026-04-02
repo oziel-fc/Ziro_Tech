@@ -53,7 +53,7 @@
 <style module>
 .footer {
     width: 100%;
-    height: 20vh;
+    height: 200px;
     margin-top: 60px;
     background-color: black;
     display: flex;

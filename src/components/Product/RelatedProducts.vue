@@ -4,8 +4,10 @@
     import { useProduct } from '../../utils/useProductStore';
     import CreateProductCard from '../Cards/CreateProductCard.vue';
     import { type ProductSimple } from '../../utils/utils';
+    import { useScreenWidth } from '../../utils/useScreenWidth';
 
     const { product } = useProduct()
+    const { screenWidth } = useScreenWidth()
 
 
     const relatedProduct = computed<ProductSimple[]>(() => {
@@ -30,6 +32,8 @@
 
     // Width of Elements
     const defaultWidthScreen = computed(() => {
+        screenWidth.value
+
         return parseInt(getComputedStyle(document.documentElement).getPropertyValue('--default-page-width').trim())
     })
 

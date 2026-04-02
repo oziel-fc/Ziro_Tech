@@ -85,3 +85,11 @@ select {
   :root {
   --default-page-width: 1300px;
 }}
+@media (max-width: 1350px) {
+  :root {
+  --default-page-width: 1200px;
+}}
+@media (max-width: 1250px) {
+  :root {
+  --default-page-width: 100%;
+}}

@@ -64,4 +64,10 @@
         width: 20px;
         height: 20px;
     }
+    /* Responsiveness */
+    @media (max-width: 1350px) {
+        .search_bar {
+            width: 260px;
+        }
+    }
 </style>
