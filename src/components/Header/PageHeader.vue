@@ -81,7 +81,7 @@
     margin-bottom: 18px;
   }
   #logo {
-    height: 32px;
+    height: var(--size-logo);
   }
   .category_bar {
     display: flex;

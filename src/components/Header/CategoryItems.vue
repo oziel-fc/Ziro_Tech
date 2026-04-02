@@ -121,4 +121,14 @@
   .subcategorie span {
     font-size: 13px;
   }
+
+  @media (max-width: 1300px) {
+    .category {
+      width: 150px;
+      font-size: 14px;
+    }
+    .subcategorie span {
+      font-size: 12px;
+    }
+  }
 </style>

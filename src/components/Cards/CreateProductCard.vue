@@ -42,10 +42,9 @@
   }
   .product_card {
     width: 100%;
-    aspect-ratio: 1 / 1.259;
+    height: auto;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     border-radius: 5px;
     overflow: hidden;
@@ -67,16 +66,17 @@
   }
   .product_info {
     width: 90%;
-    height: 72px;
-    margin-top: 5px;
+    padding-bottom: 10px;
+    gap: 3px;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
   .product_info span {
     color: white;
   }
   #title {
-    height: 40px;
     color: white;
     font-size: 13px;
     display: -webkit-box;         /* Necessário para o efeito de várias linhas */
@@ -95,7 +95,6 @@
   #price {
     color: white;
     font-size: 16px;
-    
   }
   #stock {
     font-size: 12px;
@@ -103,5 +102,18 @@
     padding: 0px 5px;
     border-radius: 5px;
     height: 20px;
+  }
+  
+  @media (max-width: 1200px) {
+    #title {
+      font-size: 12px;
+    }
+    #price {
+      font-size: 14px;
+    }
+    #stock {
+      font-size: 11px;
+      height: 18px;
+    }
   }
 </style>

@@ -64,10 +64,30 @@
         width: 20px;
         height: 20px;
     }
+    
     /* Responsiveness */
     @media (max-width: 1350px) {
         .search_bar {
             width: 260px;
+            height: 32px;
+        }
+    }
+    @media (max-width: 1250px) {
+        .search_bar {
+            width: 240px;
+        }
+    }
+    @media (max-width: 1180px) {
+        .search_bar {
+            width: 220px;
+        }
+    }
+    @media (max-width: 1100px) {
+        .search_bar {
+            width: 200px;
+        }
+        .input {
+            font-size: 12px;
         }
     }
 </style>

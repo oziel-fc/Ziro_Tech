@@ -102,9 +102,10 @@
   width: 14px;
 }
 .sort_options {
+  position: relative;
   border: 1px solid black;
   border-radius: 4px;
-  margin-top: 2px;
+  margin-top: 3px;
   background-color: whitesmoke;
   z-index: 1001;
   display: flex;

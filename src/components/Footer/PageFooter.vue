@@ -73,11 +73,11 @@
     height: fit-content;
 }
 .footer_logo img {
-    height: 30px;
+    height: var(--size-logo);
 }
 .about {
     height: 100%;
-    width: 40%;
+    width: 55%;
     padding-top: 15px;
 }
 .about h2 {

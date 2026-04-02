@@ -144,7 +144,12 @@
   }
   @media (max-width: 1250px) {
     .products_cards {
-      padding: 0px 16px;
+      gap: 15px;
+    }
+  }
+  @media (max-width: 1024px) {
+    .products_cards {
+      grid-template-columns: repeat(3, 1fr); 
     }
   }
 </style>

@@ -1,8 +1,8 @@
 :root {
-    --font-default: ;
     --font-color: white;
     --default-page-width: 1400px;
     --default-page-color: #f2f3f4;
+    --size-logo: 30px
 }
 
 /* Normal Font */
@@ -89,7 +89,18 @@ select {
   :root {
   --default-page-width: 1200px;
 }}
+@media (max-width: 1300px) {
+  :root {
+    --size-logo: 28px
+  }
+}
+
 @media (max-width: 1250px) {
   :root {
   --default-page-width: 100%;
 }}
+@media (max-width: 1250px) {
+  section, header, footer {
+    padding: 0px 16px;
+  }
+}

@@ -75,8 +75,6 @@
             {{ showDescription }}
           </p>
         </div>
-        
-        <SortProducts/>
 
       </div>
       
@@ -88,8 +86,12 @@
         width: '100%',
         margin: '10px 0'
       }">
-
       
+      <div :class="$style.sort_element">
+        <SortProducts/>      
+      </div>
+      
+
     </div>
 
     <div :class="$style.viewport_description" v-if="searchedItem.searchQuery != null">
@@ -116,7 +118,7 @@
   .organize_elements {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
   }
   .text_elements {
     display: flex;
@@ -137,5 +139,10 @@
     font-size: 23px;
     margin: 8px 0px;
     font-weight: 400;
+  }
+  .sort_element {
+    width: 100%;
+    display: flex;
+    justify-content: end;
   }
 </style>
