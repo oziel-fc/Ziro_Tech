@@ -2,12 +2,10 @@
     import { ref } from 'vue'
     import { useSearchStore } from '../../utils/useSearchStore'
     import { useRouter } from 'vue-router'
-    import { useIsMobile } from '../../utils/useIsMobile'
 
     const router = useRouter()
     const searchStore = useSearchStore()
-    const localSearch = ref('') 
-    const { isMobile } = useIsMobile()
+    const localSearch = ref('')
 
     const handleSearch = () => {
         const search = localSearch.value.trim()
@@ -22,7 +20,7 @@
 
 
 <template>
-  <div :class="$style.search_bar" v-if="!isMobile">
+  <div :class="$style.search_bar">
     <form :class="$style.input_bar" @submit.prevent="handleSearch">
         <input
             v-model="localSearch"
