@@ -2,32 +2,38 @@
     import { ref } from 'vue'
     import { useSearchStore } from '../../utils/useSearchStore'
     import { useRouter } from 'vue-router'
+    import { useIsMobile } from '../../utils/useIsMobile'
 
     const router = useRouter()
     const searchStore = useSearchStore()
     const localSearch = ref('') 
+    const { isMobile } = useIsMobile()
 
     const handleSearch = () => {
-        searchStore.setSearch(localSearch.value)
-        router.push(`/search/${searchStore.searchQuery}`)
+        const search = localSearch.value.trim()
+
+        if (!search) return
+
+        searchStore.setSearch(search)
+        router.push(`/search/${search}`)
     }
 
 </script>
 
 
 <template>
-  <div :class="$style.search_bar">
-    <form :class="$style.input_bar" @submit.prevent="handleSearch">
-        <input
-            v-model="localSearch"
-            :class="$style.input" 
-            type="search" 
-            placeholder="O que você procura?" 
-            />
-        <button :class="$style.button_search">
-            <img src="../../../src/assets/search.png" alt="Lupa">
-        </button>
-    </form>
+  <div :class="$style.search_bar" v-if="!isMobile">
+    <input
+        @keydown.enter="handleSearch"
+        v-model="localSearch"
+        :class="$style.input" 
+        type="search" 
+        placeholder="O que você procura?" 
+        />
+    <button :class="$style.button_search" 
+        @click="handleSearch">
+        <img src="../../../src/assets/search.png" alt="Lupa">
+    </button>
   </div>
 </template>
 
@@ -36,14 +42,9 @@
         width: 300px;
         height: 34px;
         margin-bottom: 12px;
-    }
-    .input_bar {
-        display: flex;  /* Alinha o input e o botão lado a lado */
-        width: 100%;    
-        height: 100%;
         border: 2px solid #ccc;
-        border-radius: 4px; /* Bordas arredondadas */
-        overflow: hidden; /* Garante que tudo fique dentro da borda */
+        display: flex;
+        border-radius: 4px;
     }
     .input {
         flex-grow: 1; /* O input ocupa todo o espaço restante */
@@ -64,7 +65,7 @@
         width: 20px;
         height: 20px;
     }
-    
+
     /* Responsiveness */
     @media (max-width: 1350px) {
         .search_bar {

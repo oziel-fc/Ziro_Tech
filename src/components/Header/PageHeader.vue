@@ -1,28 +1,17 @@
 <script setup lang="ts">
   import Searcher from './Searcher.vue';
   import CategoryItems from './CategoryItems.vue';
-  import { ref, onMounted } from 'vue';
+  import { ref } from 'vue';
   import dataCategories from '../../data/descriptionCategories';
+  import { useIsMobile } from '../../utils/useIsMobile';
+  import { getWidthOf } from '../../utils/useElementWidth';
 
-  
   const lenCategoriesBars = dataCategories.length
-  const categoryBarElement = ref<HTMLUListElement | null>(null);
-  const categoryBarWidth = ref(0);
+  const categoryBarElement = ref<HTMLElement | null>(null);
+  const categoryBarWidth = getWidthOf(categoryBarElement)
   const hoverIndex = ref(0)
+  const { isMobile } = useIsMobile()
 
-  // Function to update the value of width everytime who changes
-  onMounted(() => {
-    if (!categoryBarElement.value) return;
-
-    const observer = new ResizeObserver(([entry]) => {
-      const width = entry?.contentRect.width;
-      if (width !== undefined) {
-        categoryBarWidth.value = width;
-      }
-    });
-
-    observer.observe(categoryBarElement.value);
-  });
 
   // Function coming from the component category, this func acts everytime hover the category element
   const hoverElementIndex = (id: number) => {
@@ -32,7 +21,7 @@
 </script>
 
 <template>
-  <header>
+  <header :style="{height: isMobile ? '70px' : ''}">
     <div :class="$style.container">
       <RouterLink :to="'/'" :class="$style.link_logo">
         <img :id="$style.logo" src="../../../public/ziro_logo.png" alt="Ziro Logo">
@@ -40,6 +29,7 @@
       <div>
         <ul :class="$style.category_bar" ref="categoryBarElement">
           <CategoryItems
+            v-if="!isMobile"
             v-for="(item, index) in dataCategories"
               :key="item.category.name"
               :category="item.category.name"
