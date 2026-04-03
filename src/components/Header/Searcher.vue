@@ -23,17 +23,17 @@
 
 <template>
   <div :class="$style.search_bar" v-if="!isMobile">
-    <input
-        @keydown.enter="handleSearch"
-        v-model="localSearch"
-        :class="$style.input" 
-        type="search" 
-        placeholder="O que você procura?" 
-        />
-    <button :class="$style.button_search" 
-        @click="handleSearch">
-        <img src="../../../src/assets/search.png" alt="Lupa">
-    </button>
+    <form :class="$style.input_bar" @submit.prevent="handleSearch">
+        <input
+            v-model="localSearch"
+            :class="$style.input" 
+            type="search" 
+            placeholder="O que você procura?" 
+            />
+        <button :class="$style.button_search">
+            <img src="../../../src/assets/search.png" alt="Lupa">
+        </button>
+    </form>
   </div>
 </template>
 
@@ -42,9 +42,14 @@
         width: 300px;
         height: 34px;
         margin-bottom: 12px;
+    }
+    .input_bar {
+        display: flex;  /* Alinha o input e o botão lado a lado */
+        width: 100%;    
+        height: 100%;
         border: 2px solid #ccc;
-        display: flex;
-        border-radius: 4px;
+        border-radius: 4px; /* Bordas arredondadas */
+        overflow: hidden; /* Garante que tudo fique dentro da borda */
     }
     .input {
         flex-grow: 1; /* O input ocupa todo o espaço restante */
