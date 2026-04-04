@@ -21,12 +21,12 @@
 
 <template>
   <div :class="$style.search_bar">
-    <form :class="$style.input_bar" @submit.prevent="handleSearch">
+    <form :class="$style.form_bar" @submit.prevent="handleSearch">
         <input
             v-model="localSearch"
             :class="$style.input" 
             type="search" 
-            placeholder="O que você procura?" 
+            placeholder="O que você está procurando? Digite Aqui..." 
             />
         <button :class="$style.button_search">
             <img src="../../../src/assets/search.png" alt="Lupa">
@@ -37,16 +37,15 @@
 
 <style module>
     .search_bar {
-        width: 300px;
-        height: 34px;
-        margin-bottom: 12px;
+        width: 100%;
+        height: 45px;
     }
-    .input_bar {
+    .form_bar {
         display: flex;  /* Alinha o input e o botão lado a lado */
         width: 100%;    
         height: 100%;
         border: 2px solid #ccc;
-        border-radius: 4px; /* Bordas arredondadas */
+        border-radius: 4px; 
         overflow: hidden; /* Garante que tudo fique dentro da borda */
     }
     .input {
@@ -54,44 +53,18 @@
         padding: 0px 5px;
         border: none;
         outline: none; /* Remove a borda padrão de foco */
-        font-size: 13px;
+        font-size: 14px;
     }
     .button_search {
         background-color: black;
-        width: 30px;
+        width: 40px;
         height: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
     }
     .button_search img {
-        width: 20px;
-        height: 20px;
-    }
-
-    /* Responsiveness */
-    @media (max-width: 1350px) {
-        .search_bar {
-            width: 260px;
-            height: 32px;
-        }
-    }
-    @media (max-width: 1250px) {
-        .search_bar {
-            width: 240px;
-        }
-    }
-    @media (max-width: 1180px) {
-        .search_bar {
-            width: 220px;
-        }
-    }
-    @media (max-width: 1100px) {
-        .search_bar {
-            width: 200px;
-        }
-        .input {
-            font-size: 12px;
-        }
+        width: 25px;
+        height: 25px;
     }
 </style>

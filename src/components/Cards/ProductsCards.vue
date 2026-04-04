@@ -152,4 +152,15 @@
       grid-template-columns: repeat(3, 1fr); 
     }
   }
+  @media (max-width: 768px) {
+    .products_cards {
+      grid-template-columns: repeat(2, 1fr);
+      margin-top: 20px;
+    }
+  }
+  @media (max-width: 650px) {
+    .products_cards {
+      gap: 8px;
+    }
+  }
 </style>

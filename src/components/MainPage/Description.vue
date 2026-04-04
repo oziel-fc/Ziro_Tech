@@ -145,4 +145,10 @@
     display: flex;
     justify-content: end;
   }
+  @media screen {
+    .viewport_description {
+      margin-top: 0px;
+      padding: 15px 0px 0px 0px;
+    }
+  }
 </style>

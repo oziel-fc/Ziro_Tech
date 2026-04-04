@@ -25,9 +25,9 @@
         <div :class="$style.product_info">
           <span :id="$style.title">{{ title }}</span>
           <div :class="$style.price_stock">
-            <span :id="$style.price">{{ formatBRL(price) }}</span>
-            <span :id="$style.stock" v-if="showDisponibilityTag && stock === 0" :style="{backgroundColor: 'rgb(194, 40, 31)'}">INDISPONÍVEL</span>
-            <span :id="$style.stock" v-if="showDisponibilityTag && stock > 0" :style="{backgroundColor: 'green'}">DISPONÍVEL</span>
+            <span :class="$style.price">{{ formatBRL(price) }}</span>
+            <span :class="$style.stock" v-if="showDisponibilityTag && stock === 0" :style="{backgroundColor: 'rgb(194, 40, 31)'}">INDISPONÍVEL</span>
+            <span :class="$style.stock" v-if="showDisponibilityTag && stock > 0" :style="{backgroundColor: 'green'}">DISPONÍVEL</span>
           </div>
         </div>
       </div>        
@@ -92,28 +92,44 @@
     justify-content: space-between;
     align-items: end;
   }
-  #price {
+  .price {
     color: white;
     font-size: 16px;
   }
-  #stock {
+  .stock {
     font-size: 12px;
     font-weight: 700;
-    padding: 0px 5px;
+    padding: 5px 5px;
     border-radius: 5px;
-    height: 20px;
+    height: fit-content;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    line-height: 0.8;
   }
   
   @media (max-width: 1200px) {
     #title {
       font-size: 12px;
     }
-    #price {
+    .price {
       font-size: 14px;
     }
-    #stock {
+    .stock {
       font-size: 11px;
-      height: 18px;
+    }
+  }
+  @media (max-width: 768px) {
+    .stock {
+      font-size: 10px;
+    }
+    .price_stock {
+      align-items: center;
+    }
+    .product_info {
+      gap: 5px;
+      padding-bottom: 8px;
+      padding-top: 5px;
     }
   }
 </style>

@@ -2,6 +2,7 @@
     import { ref, onMounted, onUnmounted } from 'vue'
     import { RouterLink } from 'vue-router'
     import { getWidthOf } from '../../utils/useElementWidth'
+    import { useIsMobile } from '../../utils/useIsMobile'
 
     const carousel_items = [{
             img_path: "/src/assets/carousel/phone_headset.png",
@@ -22,8 +23,9 @@
     
     let currentBanner = ref(1)
     const lenBanners = carousel_items.length
-    const carouselMainDiv = ref<HTMLElement | null>(null); // Taking the value of referenced object
-    const carouselWidth = getWidthOf(carouselMainDiv)
+    const carouselMainDiv = ref<HTMLElement | null>(null);
+    const carouselWidth = getWidthOf(carouselMainDiv);
+    const { isMobile } = useIsMobile();
 
     const changeBanner = (step) => {
         if (step == 1) {
@@ -70,7 +72,7 @@
 
 
 <template>
-  <div ref="carouselMainDiv" :class="$style.carousel">
+  <div ref="carouselMainDiv" :class="$style.carousel" v-if="!isMobile">
     
 
     <div :class="$style.carousel_slides"

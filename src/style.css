@@ -2,7 +2,8 @@
     --font-color: white;
     --default-page-width: 1400px;
     --default-page-color: #f2f3f4;
-    --size-logo: 30px
+    --size-logo: 30px;
+    --mobile-padding: 16px;
 }
 
 /* Normal Font */
@@ -101,6 +102,6 @@ select {
 }}
 @media (max-width: 1250px) {
   section, header, footer {
-    padding: 0px 16px;
+    padding: 0px var(--mobile-padding);
   }
 }

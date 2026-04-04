@@ -1,10 +1,12 @@
 <script setup lang="ts">
-  import Searcher from './Searcher.vue';
   import CategoryItems from './CategoryItems.vue';
+  import SearcherBarDesktop from './SearcherBarDesktop.vue';
+  import PageHeaderMobile from './PageHeaderMobile.vue';
   import { ref } from 'vue';
   import dataCategories from '../../data/descriptionCategories';
   import { useIsMobile } from '../../utils/useIsMobile';
   import { getWidthOf } from '../../utils/useElementWidth';
+  
 
   const lenCategoriesBars = dataCategories.length
   const categoryBarElement = ref<HTMLElement | null>(null);
@@ -18,18 +20,19 @@
     hoverIndex.value = id
   }
 
+
 </script>
 
 <template>
-  <header :style="{height: isMobile ? '70px' : ''}">
+  <header v-if="!isMobile" :class="$style.page_header">
     <div :class="$style.container">
       <RouterLink :to="'/'" :class="$style.link_logo">
         <img :id="$style.logo" src="../../../public/ziro_logo.png" alt="Ziro Logo">
       </RouterLink>
+
       <div>
         <ul :class="$style.category_bar" ref="categoryBarElement">
           <CategoryItems
-            v-if="!isMobile"
             v-for="(item, index) in dataCategories"
               :key="item.category.name"
               :category="item.category.name"
@@ -42,13 +45,16 @@
             transform: `translateX(${(categoryBarWidth / lenCategoriesBars) * hoverIndex}px)`}"></div>
         </ul>
       </div>
-      <Searcher/>
+
+      <SearcherBarDesktop/>
     </div>
   </header>
+
+  <PageHeaderMobile v-if="isMobile"/>
 </template>
 
 <style module>
-  header {
+  .page_header {
     width: 100%;
     height: 105px;
     background-color: black;
