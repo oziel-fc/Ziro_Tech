@@ -70,13 +70,14 @@
     gap: 3px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
   }
   .product_info span {
     color: white;
   }
   #title {
+    min-height: 38px;
     color: white;
     font-size: 13px;
     display: -webkit-box;         /* Necessário para o efeito de várias linhas */
@@ -111,6 +112,7 @@
   @media (max-width: 1200px) {
     #title {
       font-size: 12px;
+      min-height: 35px;
     }
     .price {
       font-size: 14px;
