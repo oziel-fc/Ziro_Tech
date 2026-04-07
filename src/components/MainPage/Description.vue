@@ -5,10 +5,18 @@
   import { slugify } from '../../utils/utils'
   import { useSearchStore } from '../../utils/useSearchStore'
   import SortProducts from './SortProducts.vue'
+  import { useFilteredProducts } from '../../utils/useFilteredProducts'
+  import { DataProducts } from '../../utils/useProductStore'
+  import { useSort } from '../../utils/currentSortType'
 
   const route = useRoute()
   const searchedItem = useSearchStore()
+  const { currentSortType } = useSort()
 
+  const { filteredDataProducts } = useFilteredProducts(
+    DataProducts,
+    currentSortType
+  )
 
   // Function who changes every time with the change of the route
   const currentCategory = computed(() => {
@@ -98,6 +106,9 @@
       <h1 :class="$style.searched_text">
         Você buscou por: <strong>{{ showTitle }}</strong>
       </h1>
+      <div :class="$style.sort_element">
+        <SortProducts v-if="filteredDataProducts.length > 0"/>      
+      </div>
     </div>
 
   </section>

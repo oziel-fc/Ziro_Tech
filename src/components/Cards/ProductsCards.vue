@@ -1,61 +1,20 @@
 <script setup lang="ts">
   import { useRoute } from 'vue-router';
   import CreateProductCard from './CreateProductCard.vue';
-  import { nextTick, computed, watch} from 'vue';
-  import { slugify } from '../../utils/utils';
+  import { nextTick, watch} from 'vue';
   import { DataProducts, isLoading } from '../../utils/useProductStore';
-  import { type ProductSimple } from '../../utils/utils';
-  import { sortProducts } from '../../utils/useSortProducts';
   import { useSort } from '../../utils/currentSortType';
+  import { useFilteredProducts } from '../../utils/useFilteredProducts';
 
   const route = useRoute()
   const { currentSortType } = useSort()
 
 
   // Return the product if is equal of the route
-  const filteredDataProducts = computed<ProductSimple[]>(() => {
-    const { category, subcategory, searched } = route.params;
-    const productsData = DataProducts.value;
-    const searchedTerms = slugify(String(searched || ''))
-    .split('-')
-    .filter(word => word.length > 2)
-
-    return sortProducts(
-      productsData.filter(product => {
-        const productNameWordlist = slugify(product.shopee?.name || '')
-        const productSubcategory = slugify(product.shopee?.subcategory || '')
-        const productCategory = slugify(product.shopee?.category || '')
-
-        // Home
-        if (route.path === '/') {
-          if (product.shopee?.stock) {
-            return true
-          }
-        }
-
-        // Search Cards
-        if (searchedTerms.length > 0) {
-          if (searchedTerms.some(item =>
-            productNameWordlist.includes(item) ||
-            item == productCategory ||
-            item == productSubcategory
-          )) {
-            return true
-          }
-        }
-
-        // Subcategory Cards
-        if (subcategory && productSubcategory === subcategory) return true
-        
-        // Category Cards
-        if (!subcategory && productCategory === category) return true
-
-        return false
-      
-      }), currentSortType.value
-    )
-  });
-
+  const { filteredDataProducts } = useFilteredProducts(
+    DataProducts,
+    currentSortType
+  )
 
   // Verify the route
   watch(
