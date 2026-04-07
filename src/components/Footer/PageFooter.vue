@@ -2,6 +2,7 @@
     import { RouterLink } from 'vue-router';
     import { useIsMobile } from '../../utils/useIsMobile';
     import { watchEffect } from 'vue';
+    import PageFooterMobile from './PageFooterMobile.vue';
 
     const { isMobile } = useIsMobile()
 
@@ -12,7 +13,7 @@
 
 
 <template>
-    <footer :class="$style.footer">
+    <footer :class="$style.footer" v-if="!isMobile">
         <div :class="$style.viewport_footer">
             <div :class="$style.footer_logo">
                 <RouterLink :to="'/'">
@@ -47,6 +48,8 @@
             <p :style="{fontSize: '12px', color: '#868686'}">© 2026 Ziro Tech | Developed by Oziel Felipe.</p>
         </div>
     </footer>
+
+    <PageFooterMobile v-if="isMobile"/>
 </template>
 
 

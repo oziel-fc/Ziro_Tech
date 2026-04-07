@@ -1,31 +1,43 @@
 <script setup lang="ts">
-    import { ref, onMounted, onUnmounted } from 'vue'
+    import { ref, onMounted, onUnmounted, computed } from 'vue'
     import { RouterLink } from 'vue-router'
     import { getWidthOf } from '../../utils/useElementWidth'
-    import { useIsMobile } from '../../utils/useIsMobile'
+    import { useScreenWidth } from '../../utils/useScreenWidth'
 
-    const carousel_items = [{
-            img_path: "/src/assets/carousel/phone_headset.png",
+    const carouselItems = [
+        {
+            img: {
+                desktop: "/src/assets/carousel/phone_headset.webp",
+                mobile: "/src/assets/carousel/phone_headset_mobile.webp"
+            },
             link: "search/fone headset headphone",
             alt: "Banner dos Fones e Headsets"
         },
         {
-            img_path: "/src/assets/carousel/hardware.png",
+            img: {
+                desktop: "/src/assets/carousel/hardware.webp",
+                mobile: "/src/assets/carousel/hardware_mobile.webp"
+            },
             link: "hardware",
             alt: "Banner dos Hardwares"
         },
         {
-            img_path: "/src/assets/carousel/mouse_keyboard.png",
+            img: {
+                desktop: "/src/assets/carousel/mouse_keyboard.webp",
+                mobile: "/src/assets/carousel/mouse_keyboard_mobile.webp"
+            },
             link: "search/mouse-teclado",
             alt: "Banner dos Mouses e Teclados"
         }
     ]
     
+
     let currentBanner = ref(1)
-    const lenBanners = carousel_items.length
+    const lenBanners = carouselItems.length
     const carouselMainDiv = ref<HTMLElement | null>(null);
     const carouselWidth = getWidthOf(carouselMainDiv);
-    const { isMobile } = useIsMobile();
+    const { screenWidth } = useScreenWidth()
+    const isCarouselMobile = computed(() => screenWidth.value < 768)
 
     const changeBanner = (step) => {
         if (step == 1) {
@@ -68,25 +80,67 @@
     onUnmounted(() => {
         if (timerID) clearInterval(timerID);
     });
+
+    // Function to scroll between banners when in mobile
+    let startX = 0
+    const dragOffset = ref(0)
+    let isDragging = false
+
+    const handleTouchStart = (e: TouchEvent) => {
+        const touch = e.touches[0]
+        if (!touch) return
+
+        isDragging = true
+        startX = touch.clientX
+    }
+
+    const handleTouchMove = (e: TouchEvent) => {
+        if (!isDragging) return
+
+        const touch = e.touches[0]
+        if (!touch) return
+
+        dragOffset.value = touch.clientX - startX
+    }
+
+    const handleTouchEnd = () => {
+        isDragging = false
+
+        if (dragOffset.value < -50) {
+            changeBanner(1)
+            resetChangeTimer()
+        }
+
+        if (dragOffset.value > 50) {
+            changeBanner(-1)
+            resetChangeTimer()
+        }
+
+        dragOffset.value = 0
+    }
 </script>
 
 
 <template>
-  <div ref="carouselMainDiv" :class="$style.carousel" v-if="!isMobile">
+  <div ref="carouselMainDiv" 
+    :class="$style.carousel" 
+    @touchstart="handleTouchStart"
+    @touchmove="handleTouchMove"
+    @touchend="handleTouchEnd">
     
-
     <div :class="$style.carousel_slides"
-    :style="{width: `calc(100% * ${lenBanners})`, transform: `translateX(calc(${carouselMainDiv != null ? carouselWidth : 0}px * -${currentBanner - 1}))`}"> 
+    :style="{width: `calc(100% * ${lenBanners})`, 
+            transform: `translateX(calc(${carouselMainDiv != null ? carouselWidth : 0}px * -${currentBanner - 1} + ${dragOffset}px))`}"> 
         <div
-            v-for="item in carousel_items"
+            v-for="item in carouselItems"
             :class="$style.banner_image">
             <RouterLink :to="`/${item.link}`">
-                <img :src="item.img_path" :alt="item.alt">
+                <img :src="isCarouselMobile ? item.img.mobile : item.img.desktop" :alt="item.alt">
             </RouterLink>
         </div>
     </div>
 
-    <div :class="$style.navigators">
+    <div :class="$style.navigators" v-if="!isCarouselMobile">
         <!-- Back Button -->
         <div :class="$style.carousel_btn_body">
             <div :class="[$style.carousel_btn, $style.left]"
@@ -104,7 +158,7 @@
     <div :class="$style.indicators">
         <!-- Indicators are created based on the number of images -->
         <div
-            v-for="i in carousel_items.length"
+            v-for="i in carouselItems.length"
             :class="[$style.indicators_bars, currentBanner === i ? $style.active : '']"
             :key="i"
             @click="currentBanner = i, resetChangeTimer()">
@@ -184,7 +238,7 @@
     }
     .carousel_btn.left {
         cursor: pointer;
-        background-image: url('../../assets/carousel/arrow.png');
+        background-image: url('../../assets/carousel/arrow.webp');
         background-size: cover;     
         background-repeat: no-repeat;  
         background-position: center; /* centralize */
@@ -192,7 +246,7 @@
     }
     .carousel_btn.right {
         cursor: pointer;
-        background-image: url('../../assets/carousel/arrow.png');
+        background-image: url('../../assets/carousel/arrow.webp');
         background-size: cover;     /* fill the div */
         background-repeat: no-repeat;  
         background-position: center; /* centralize */
@@ -216,5 +270,10 @@
     .active {
         background-color: #ffffff;
         transform: scale(1.05);
+    }
+    @media (max-width: 768px) {
+        .carousel {
+            aspect-ratio: 1 / 1;
+        }   
     }
 </style>
