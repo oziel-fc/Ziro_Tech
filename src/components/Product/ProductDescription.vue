@@ -68,19 +68,23 @@
     <div :class="$style.viewport_description">
         <h2 :id="$style.about_title">SOBRE O PRODUTO</h2>
         <div :class="$style.description_grid">
-            <div :class="$style.left_side">
+            
+            <div :class="$style.description_text">
                 <h3 :class="$style.subtitle">{{ product?.shopee?.name || product?.olx?.name }}</h3>
                 <p :style="{ padding: '10px'}">{{ extractText('Produto', 'Especificações', descriptionText) }}</p>
             </div>
-            <div :class="$style.right_side">
+
+            <div :class="$style.description_image">
                 <img :src="productImages[1]" alt="Exemplar de Imagem para Descrição">
             </div>
         </div>
         <div :class="$style.description_grid">
-            <div :class="$style.left_side">
+
+            <div :class="$style.description_image">
                 <img :src="productImages[2]" alt="Exemplar de Imagem para Descrição">
             </div>
-            <div :class="$style.right_side">
+            
+            <div :class="$style.description_text">
                 <h3 :class="$style.subtitle">Especificações Técnicas</h3>
                 <p v-for="text in extractTechnicalSpecs(descriptionText)"> 
                 {{ text }}
@@ -101,7 +105,7 @@
     flex-direction: column;
 }
 .viewport_description {
-    width: 1220px;
+    max-width: 1220px;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -121,26 +125,42 @@
     flex-direction: row;
     padding: 25px 0px;
 }
-.description_grid img {
-    width: 525px;
-    aspect-ratio: 1 / 1 ;
-    border-radius: 10px;
-}
-.description_grid div {
+.description_text {
     width: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
-.description_grid p {
+.description_image {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.description_image img {
+    width: 510px;
+    aspect-ratio: 1 / 1 ;
+    border-radius: 10px;
+}
+
+.description_text p {
     text-align: justify;
 }
-.description_grid h3 {
+.description_text h3 {
     text-align: justify;
     padding: 10px;
 }
-/* .right_side {
-    width: 50%;
-} */
+@media (max-width: 1350px) {
+    .subtitle {
+        font-size: 25px;
+    }
+    .description_text p {
+        font-size: 15px;
+    }
+    .description_image img {
+        width: 450px;
+    }
+}
 </style>

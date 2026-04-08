@@ -148,7 +148,7 @@
 }
 
 .product_info {
-    width: 50%;
+    flex: 1;
     padding: 0px 20px 0px 20px;
     display: flex;
     flex-direction: column;

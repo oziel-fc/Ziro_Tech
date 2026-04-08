@@ -53,17 +53,27 @@
     margin-top: 5px;
 }
 #disponibility {
+    color: white;
+    height: fit-content;
+    width: fit-content;
     font-size: 14px;
     font-weight: 700;
-    margin-top: 10px;
-    width: fit-content;
-    color: white;
-    padding: 3px 8px;
+    padding: 7px 5px;
     border-radius: 5px;
+    margin-top: 10px;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    line-height: 0.8;
 }
 .brand_info {
     margin-top: 5px;
     display: flex;
     justify-content: space-between;    
+}
+@media (max-width: 1350px) {
+    #title {
+        font-size: 24px;
+    }
 }
 </style>

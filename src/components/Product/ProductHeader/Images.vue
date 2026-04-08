@@ -1,6 +1,7 @@
 <script setup lang="ts">
     import { ref } from 'vue';
     import { getWidthOf } from '../../../utils/useElementWidth';
+    import { computed } from 'vue';
     
     const props = defineProps<{
         currentImage: number
@@ -16,7 +17,11 @@
     const carouselWidth = getWidthOf(carouselRef)
 
     const valueScrollThumb = ref(0)
-    const widthThumbElement = ref(110)
+    const thumbRef = ref(null)
+    const widthThumbnails = getWidthOf(thumbRef)
+    const widthThumbElement = computed(() => {
+        return widthThumbnails.value / 6
+    }) 
 
     const scrollThumb = () => {
 
@@ -41,7 +46,7 @@
         </div>
 
         <div :class="$style.viewport_thumb">
-            <div :class="$style.thumbnail_images">
+            <div :class="$style.thumbnail_images" ref="thumbRef">
                 <div :class="$style.thumb_image" v-for="(imagePath, imgIndex) in productImages" 
                     @click="toggleCurrentImage(imgIndex)"
                     :style="{transform: `translateX(${valueScrollThumb}px)`}">
@@ -70,17 +75,21 @@
 
 <style module>
     .product_images {
-        width: 700px;
-        height: 800px;
-        /* border: 1px solid blue; */
+        /* width: 700px; */
+        /* height: 800px; */
+        width: 100%;
+        max-width: 700px;
+        aspect-ratio: 7 / 8;
         display: flex;
         flex-direction: column;
         align-items: center;
     }
     .carousel_product_image {
-        height: 650px;
-        width: 650px;
-        /* border: 1px solid green; */
+        width: 100%;
+        max-width: 650px;
+        aspect-ratio: 1 / 1;
+        /* height: 650px; */
+        /* width: 650px; */
         overflow: hidden;
     }
     .current_image {
@@ -102,8 +111,11 @@
         overflow: hidden;
     }
     .viewport_thumb {
-        height: 144px;
-        width: 650px;
+        width: 100%;
+        max-width: 650px;
+        aspect-ratio: 650 / 144;
+        /* height: 144px; */
+        /* width: 650px; */
         display: flex;
         align-items: center;
         position: relative;
@@ -111,8 +123,8 @@
     .thumb_image {
         flex-shrink: 0;
         cursor: pointer;
-        width: 100px;
-        height: 100px;
+        width: calc((100% - (5 * 10px)) / 6);
+        aspect-ratio: 1 / 1;
         margin-right: 10px;
         transition: transform 1s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
