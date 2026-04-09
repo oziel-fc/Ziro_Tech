@@ -76,4 +76,9 @@
         font-size: 24px;
     }
 }
+@media (max-width: 1100px) {
+    #title {
+        font-size: 22px;
+    }
+}
 </style>

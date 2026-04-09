@@ -86,9 +86,9 @@
             
             <div :class="$style.description_text">
                 <h3 :class="$style.subtitle">Especificações Técnicas</h3>
-                <p v-for="text in extractTechnicalSpecs(descriptionText)"> 
+                <li v-for="text in extractTechnicalSpecs(descriptionText)"> 
                 {{ text }}
-                </p>
+                </li>
             </div>
         </div>
     </div>
@@ -118,6 +118,8 @@
 .subtitle {
     font-size: 30px;
     margin-bottom: 30px;
+    text-align: justify;
+    padding: 10px;
 }
 .description_grid {
     width: 100%;
@@ -148,19 +150,32 @@
 .description_text p {
     text-align: justify;
 }
-.description_text h3 {
-    text-align: justify;
-    padding: 10px;
+.description_text li {
+    list-style-position: inside;
+    text-align: center;
+    text-wrap: balance;
+}
+.description_text li::marker {
+    content: "• ";
+    color: black;
 }
 @media (max-width: 1350px) {
     .subtitle {
         font-size: 25px;
     }
-    .description_text p {
+    .description_text p, li {
         font-size: 15px;
     }
     .description_image img {
         width: 450px;
+    }
+}
+@media (max-width: 1100px) {
+    .description_image img {
+        width: 400px;
+    }
+    .subtitle {
+        margin-bottom: 0px;
     }
 }
 </style>

@@ -7,10 +7,14 @@
     import BrandModelStock from './BrandModelStock.vue'
     import Specs from './Specs.vue'
     import BuyButton from './BuyButton.vue'
+    import { useScreenWidth } from '../../../utils/useScreenWidth'
     
 
-    // Header Info
+    const { screenWidth } = useScreenWidth();
+    const showsSpecs = computed(() => {return screenWidth.value > 1180})
 
+
+    // Header Info
     const { product } = useProduct()
     
     // Variation
@@ -118,6 +122,7 @@
 
         <!-- Specifications -->
         <Specs
+            v-if="showsSpecs"
             :specs="specs"
         />
 

@@ -95,6 +95,7 @@
     flex-direction: row;
     padding-bottom: 16px;
     font-weight: 700;
+    font-size: 16px;
 }
 .bread_crumb ol {
     display: flex;          
@@ -107,5 +108,13 @@
 }
 .bread_crumb li {
     width: fit-content;
+}
+@media (max-width: 1150px) {
+    .bread_crumb {
+        font-size: 15px;
+    }
+    .bread_crumb ol {
+        gap: 5px;
+    }
 }
 </style>

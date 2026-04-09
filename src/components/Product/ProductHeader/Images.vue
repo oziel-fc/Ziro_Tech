@@ -77,7 +77,7 @@
     .product_images {
         /* width: 700px; */
         /* height: 800px; */
-        width: 100%;
+        width: 50%;
         max-width: 700px;
         aspect-ratio: 7 / 8;
         display: flex;
