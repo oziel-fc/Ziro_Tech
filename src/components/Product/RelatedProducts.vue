@@ -17,13 +17,12 @@
             if (rawProduct.shopee?.name === product.value?.shopee?.name) {
                 return false
             }
-
             // Brand
             if (rawProduct.shopee?.brand == product.value?.shopee?.brand) {
                 return true
             }
             // Subcategory
-            if (rawProduct.shopee?.subcategory == product.value?.shopee?.subcategory) {
+            if (rawProduct.shopee?.category == product.value?.shopee?.category) {
                 return true
             }
         })
@@ -31,25 +30,45 @@
 
 
     // Width of Elements
+
     const defaultWidthScreen = computed(() => {
+        // For reactivity purposes only
         screenWidth.value
 
-        return parseInt(getComputedStyle(document.documentElement).getPropertyValue('--default-page-width').trim())
+        let screenWidthByCSS = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--default-page-width').trim())
+
+        if (screenWidthByCSS === 100) {
+            // Value width of screen - default padding
+            screenWidthByCSS = screenWidth.value - 32
+        }
+        
+        return screenWidthByCSS
     })
 
     const gapBtwCards = ref(20)
 
-    const sizeWidthCard = computed(() => {
-        return (defaultWidthScreen.value / 6) - gapBtwCards.value
+    const itemsPerGrid = computed(() => {
+        if (screenWidth.value < 1200) {
+            return 5
+        }
+        return 6
     })
 
-    const totalWidthCard = sizeWidthCard.value + gapBtwCards.value
+    const sizeWidthCard = computed(() => {
+        return (defaultWidthScreen.value / itemsPerGrid.value) - (gapBtwCards.value - 1)
+    })
+
+    // Total size of a single card
+    const totalWidthCard = computed(() => {
+        return sizeWidthCard.value + gapBtwCards.value
+    }) 
 
     // Scroll Functions of Related Products
     const valueScrollThumb = ref(0)
 
+    // Max of value who you can scroll
     const maxScroll = computed(() => {
-        return ((relatedProduct.value.length - 6) * totalWidthCard)
+        return ((relatedProduct.value.length - itemsPerGrid.value) * totalWidthCard.value)
     })
 
     const scrollRight = () => {
@@ -71,7 +90,7 @@
     }
 
     watchEffect(() => {
-        console.log("Valor Scroll: ", valueScrollThumb.value)
+        console.log("Total Scroll: ", maxScroll.value)
     })
     
 </script>
@@ -89,7 +108,10 @@
 
     <h2>Produtos Relacionados</h2>
     <div :class="$style.viewport_cards">
-        <div :class="$style.grid_cards">
+        <div :class="$style.grid_cards"
+            :style="{
+                gap: `${gapBtwCards}px`
+            }">
             <!-- Size Page / Quantity Items - Gap Between Cards -->
             <CreateProductCard
                 v-for="product in relatedProduct"
@@ -142,6 +164,7 @@
 <style module>
 .related {
     width: var(--default-page-width);
+    padding: 0;
 }
 .related h2 {
     color: black;
@@ -156,7 +179,6 @@
 .grid_cards {
     width: 100%;
     flex-direction: row;
-    gap: 21px;
     display: flex;
     align-items: center;
     overflow: hidden;
