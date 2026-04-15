@@ -5,6 +5,7 @@
   import { DataProducts, isLoading } from '../../utils/useProductStore';
   import { useSort } from '../../utils/currentSortType';
   import { useFilteredProducts } from '../../utils/useFilteredProducts';
+import NoResults from './NoResults.vue';
 
   const route = useRoute()
   const { currentSortType } = useSort()
@@ -50,11 +51,7 @@
         />
       </div>
 
-      <div :class="$style.warning" v-if="filteredDataProducts.length <= 0 && !isLoading">
-        <span>Oops!</span>
-        <span>Não encontramos nenhum produto deste tipo!</span>
-        <img src="../../assets/box.png" alt="Caixa Vazia" style="width: 100px;">
-      </div>
+      <NoResults  v-if="filteredDataProducts.length <= 0 && !isLoading"/>
 
       <div :class="$style.loading" v-if="isLoading">
         <img src="../../assets/loading.apng" alt="Gif de Loading">
@@ -76,23 +73,6 @@
     gap: 20px; 
     width: var(--default-page-width);
     margin-top: 30px;
-  }
-  .warning {
-    color: black;
-    width: var(--default-page-width);
-    height: 300px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  .warning span {
-    font-size: 22px;
-    font-weight: 800;
-    text-align: left;
-  }
-  .warning img {
-    margin-top: 20px;
   }
 
   .loading {

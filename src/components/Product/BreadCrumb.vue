@@ -99,7 +99,7 @@
 }
 .bread_crumb ol {
     display: flex;          
-    flex-wrap: wrap;       
+    flex-wrap: nowrap;       
     list-style: none;
     padding: 0;
     margin: 0;
@@ -107,7 +107,7 @@
     gap: 8px;
 }
 .bread_crumb li {
-    width: fit-content;
+    flex: 0 0 auto;
 }
 @media (max-width: 1150px) {
     .bread_crumb p {
@@ -122,24 +122,27 @@
         width: 100%;
         overflow: hidden;
     }
+
     .bread_crumb ol {
+        display: flex;
         flex-wrap: nowrap;
+        overflow: hidden;
         gap: 4px;
     }
+
     .bread_crumb li {
-        font-size: 14px;
-        min-width: auto;
+        flex: 0 0 auto;
+    }
+
+    .bread_crumb li:last-child {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    .bread_crumb li:last-child p {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-    }
-}
-@media (max-width: 900px) {
-    .bread_crumb p {
-        font-size: 13px;
-    }
-    .bread_crumb ol {
-        gap: 3px;
     }
 }
 </style>

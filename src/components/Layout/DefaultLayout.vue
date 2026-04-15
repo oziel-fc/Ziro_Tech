@@ -45,17 +45,33 @@
 </script>
 
 <template>
-  <main ref="mainContainer">
-    <PageHeader/>
-    <RouterView/>
-    <PageFooter/>
-  </main>
+  <div class="app">
+    <main ref="mainContainer">
+      <PageHeader />
+
+      <div class="content">
+        <RouterView />
+      </div>
+
+      <PageFooter />
+    </main>
+  </div>
 </template>
 
-<style scoped>
+<style>
+.app {
+  min-height: 100vh;
+}
+
 main {
-  height: 100vh;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+.content {
+  flex: 1;
 }
 </style>
