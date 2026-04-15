@@ -1,5 +1,7 @@
 <script setup lang="ts">
     import { ensureTrailingColon } from '../../../utils/utils';
+    import { inject, type Ref, computed } from 'vue';
+    import { useScreenWidth } from '../../../utils/useScreenWidth';
 
     const props = defineProps<{
         variation: Object
@@ -9,6 +11,22 @@
         toggleCurrentImage: Function
         toggleSelectedVariation: Function
     }>();
+
+    const { screenWidth } = useScreenWidth()
+    const isVerticalScreen = computed(() => {return screenWidth.value <= 850})
+
+    const mainContainer = inject<Ref<HTMLElement | null>>('mainContainer')
+
+    const scrollToTop = () => {
+        if (!mainContainer) return
+
+        mainContainer.value?.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        })
+        console.log("Test")
+    }
+
 </script>
 
 <template>
@@ -26,7 +44,8 @@
                 <button v-for="(imageRelatedIndex, optionRelatedIndex) in variationImageIndexes"
                     :class="$style.option"
                     :style="selectedVariation === optionRelatedIndex ? 'border: 2px solid black' : ''"
-                    @click="toggleCurrentImage(imageRelatedIndex), toggleSelectedVariation(optionRelatedIndex)">
+                    @click="toggleCurrentImage(imageRelatedIndex), toggleSelectedVariation(optionRelatedIndex),
+                    isVerticalScreen && scrollToTop()">
 
                     <img :src="productImages[imageRelatedIndex]">
                 </button>

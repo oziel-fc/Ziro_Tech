@@ -70,7 +70,7 @@ export const loadData = async () => {
     const rawJSON: RawProduct[] = await response.json()
 
     DataProducts.value = rawJSON
-    console.log(DataProducts.value)
+    // console.log(DataProducts.value)
   } catch (err) {
     console.error("Error while searching for JSON: ", err)
   } finally {

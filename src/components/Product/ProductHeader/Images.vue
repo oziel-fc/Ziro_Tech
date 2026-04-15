@@ -44,7 +44,7 @@
     }
 
     watchEffect(() => {
-        console.log(carouselWidth.value)
+        // console.log(carouselWidth.value)
     })
 </script>
 

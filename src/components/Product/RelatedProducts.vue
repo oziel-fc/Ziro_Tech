@@ -93,7 +93,7 @@ import RelatedProductsMobile from './RelatedProductsMobile.vue';
     }
 
     watchEffect(() => {
-        console.log("Total Scroll: ", maxScroll.value)
+        // console.log("Total Scroll: ", maxScroll.value)
     })
     
 </script>
