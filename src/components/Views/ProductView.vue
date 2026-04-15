@@ -5,11 +5,9 @@
   import ProductDescription from '../Product/ProductDescription.vue';
   import RelatedProducts from '../Product/RelatedProducts.vue';
   import { useProduct } from '../../utils/useProductStore';
-  import { useIsMobile } from '../../utils/useIsMobile';
-  import RelatedProductsMobile from '../Product/RelatedProductsMobile.vue';
 
   const { product } = useProduct()
-  const { isMobile } = useIsMobile()
+  
 
   const isReady = ref(false)
 
@@ -29,8 +27,7 @@
     <BreadCrumb/>
     <ProductHeader/>
     <ProductDescription/>
-    <RelatedProducts v-if="!isMobile"/>
-    <RelatedProductsMobile v-if="isMobile"/>
+    <RelatedProducts/>
   </section>
 
   <div :class="$style.loading" v-if="!isReady">

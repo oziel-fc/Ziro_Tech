@@ -8,12 +8,11 @@
     import Specs from './Specs.vue'
     import BuyButton from './BuyButton.vue'
     import { useScreenWidth } from '../../../utils/useScreenWidth'
-    import ProductHeaderMobile from './ProductHeaderMobile.vue'
     
 
     const { screenWidth } = useScreenWidth();
     const showsSpecs = computed(() => {return screenWidth.value > 1180})
-    const isVerticalScreen = computed(() => {return screenWidth.value <= 850})
+
 
     // Header Info
     const { product } = useProduct()
@@ -85,12 +84,10 @@
 </script>
 
 <template>
-  <div :class="$style.product_header" v-if="!isVerticalScreen">
-    <Images
-        :product-images="productImages"
-        :scroll-by-variation="variationImage"
-    />
-    
+  <div :class="$style.product_header">
+    <Images :product-images="productImages"
+            :scroll-by-variation="variationImage"/>
+
     <div :class="$style.product_info">
         
         <!-- Info about Brand, Model and Disponibility -->
@@ -126,14 +123,6 @@
             :specs="specs"
         />
 
-        <hr :style="{
-            border: 'none',
-            height: '1px',
-            backgroundColor: '#b3b3b3',
-            width: '100%',
-            margin: '20px 0'
-        }">
-
         <BuyButton
             :shopee="product?.shopee || null"
             :olx="product?.olx || null"
@@ -142,15 +131,13 @@
         />
     </div>
   </div>
-
-  <ProductHeaderMobile v-if="isVerticalScreen"/>
 </template>
 
 <style module>
 .product_header {
     width: var(--default-page-width);
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     color: black;
 }
 
@@ -161,4 +148,9 @@
     flex-direction: column;
 }
 
+@media (max-width: 700px) {
+    .product_info {
+        padding: 0;
+    }
+}
 </style>

@@ -1,6 +1,6 @@
 import { ref, onMounted, onUnmounted, type Ref } from 'vue'
 
-export function getWidthOf(elementRef: Ref<HTMLElement | null>) {
+export function getWidthOf(elementRef: Ref<HTMLElement | null | undefined>) {
   const width = ref<number>(0)
   let observer: ResizeObserver | null = null
 

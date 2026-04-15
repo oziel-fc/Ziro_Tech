@@ -5,9 +5,12 @@
     import CreateProductCard from '../Cards/CreateProductCard.vue';
     import { type ProductSimple } from '../../utils/utils';
     import { useScreenWidth } from '../../utils/useScreenWidth';
+    import { useIsMobile } from '../../utils/useIsMobile';
+import RelatedProductsMobile from './RelatedProductsMobile.vue';
 
     const { product } = useProduct()
     const { screenWidth } = useScreenWidth()
+    const { isMobile } = useIsMobile()
 
 
     const relatedProduct = computed<ProductSimple[]>(() => {
@@ -97,7 +100,7 @@
 
 
 <template>
-  <section v-if="relatedProduct[0] != null" :class="$style.related">
+  <section v-if="relatedProduct[0] != null && !isMobile" :class="$style.related">
     <hr :style="{
         border: 'none',
         height: '1px',
@@ -158,6 +161,8 @@
     </div>
     
   </section>
+
+  <RelatedProductsMobile v-if="isMobile"/>
 </template>
 
 

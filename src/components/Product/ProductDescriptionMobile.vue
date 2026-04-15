@@ -2,11 +2,8 @@
     import { computed } from 'vue';
     import { useProduct } from '../../utils/useProductStore';
     import { extractTechnicalSpecs } from '../../utils/utils';
-    import { useIsMobile } from '../../utils/useIsMobile';
-    import ProductDescriptionMobile from './ProductDescriptionMobile.vue';
 
     const { product } = useProduct()
-    const { isMobile } = useIsMobile()
 
     const descriptionText = computed(() => {
         if (!product.value) {
@@ -58,7 +55,7 @@
 
 
 <template>
-  <section :class="$style.description" v-if="!isMobile">
+  <section :class="$style.description">
     
     <hr :style="{
         border: 'none',
@@ -82,10 +79,6 @@
             </div>
         </div>
         <div :class="$style.description_grid">
-
-            <div :class="$style.description_image">
-                <img :src="productImages[2]" alt="Exemplar de Imagem para Descrição">
-            </div>
             
             <div :class="$style.description_text">
                 <h3 :class="$style.subtitle">Especificações Técnicas</h3>
@@ -93,10 +86,13 @@
                 {{ text }}
                 </li>
             </div>
+
+            <div :class="$style.description_image">
+                <img :src="productImages[2]" alt="Exemplar de Imagem para Descrição">
+            </div>
         </div>
     </div>
   </section>
-  <ProductDescriptionMobile v-if="isMobile"/>
 </template>
 
 
@@ -107,6 +103,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    padding-bottom: 50px;
 }
 .viewport_description {
     max-width: 1220px;
@@ -128,25 +125,25 @@
 .description_grid {
     width: 100%;
     display: flex;
-    flex-direction: row;
-    padding: 25px 0px;
+    flex-direction: column;
 }
 .description_text {
-    width: 50%;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    padding-bottom: 25px;
 }
 .description_image {
-    width: 50%;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
 .description_image img {
-    width: 510px;
+    width: 100%;
     aspect-ratio: 1 / 1 ;
     border-radius: 10px;
 }
@@ -170,16 +167,29 @@
     .description_text p, li {
         font-size: 15px;
     }
-    .description_image img {
-        width: 450px;
-    }
 }
 @media (max-width: 1100px) {
-    .description_image img {
-        width: 400px;
-    }
     .subtitle {
         margin-bottom: 0px;
+    }
+}
+@media (max-width: 768px) {
+    .subtitle {
+        font-size: 22px;
+    }
+}
+@media (max-width: 700px) {
+    .description {
+        padding: 0;
+    }
+}
+@media (max-width: 600px) {
+    .subtitle {
+        text-align: start;
+        font-size: 18px;
+    }
+    .description_text p, li {
+        font-size: 14px;
     }
 }
 </style>

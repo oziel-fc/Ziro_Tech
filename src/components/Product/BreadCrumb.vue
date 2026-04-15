@@ -59,27 +59,27 @@
         <!-- Home -->
         <li>
             <RouterLink to="/" :style="{ textDecoration: 'none', color: 'inherit'}">
-                <span>Home</span>
+                <p>Home</p>
             </RouterLink>
         </li>
         <li>/</li>
         <!-- Category -->
         <li>
             <RouterLink :to="`/${slugify(category)}`" :style="{ textDecoration: 'none', color: 'inherit'}">
-                <span>{{ category }}</span>
+                <p>{{ category }}</p>
             </RouterLink>
         </li>
         <li>/</li>
         <!-- Subcategory -->
         <li>
             <RouterLink :to="`/search/${slugify(subcategory)}`" :style="{ textDecoration: 'none', color: 'inherit'}">
-                <span>{{ subcategory }}</span>
+                <p>{{ subcategory }}</p>
             </RouterLink>
         </li>
         <li>/</li>
         <!-- Product Name -->
         <li>
-            <span>{{ productName }}</span>
+            <p>{{ productName }}</p>
         </li>
     </ol>
   </nav>
@@ -110,11 +110,36 @@
     width: fit-content;
 }
 @media (max-width: 1150px) {
-    .bread_crumb {
+    .bread_crumb p {
         font-size: 15px;
     }
     .bread_crumb ol {
         gap: 5px;
+    }
+}
+@media (max-width: 900px) {
+    .bread_crumb {
+        width: 100%;
+        overflow: hidden;
+    }
+    .bread_crumb ol {
+        flex-wrap: nowrap;
+        gap: 4px;
+    }
+    .bread_crumb li {
+        font-size: 14px;
+        min-width: auto;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+@media (max-width: 900px) {
+    .bread_crumb p {
+        font-size: 13px;
+    }
+    .bread_crumb ol {
+        gap: 3px;
     }
 }
 </style>

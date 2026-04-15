@@ -13,7 +13,7 @@
 
 <template>
   <!-- Variation -->
-    <div v-if="Object.keys(variation)[0] != 'None'">
+    <div v-if="Object.keys(variation)[0] != 'None'" :style="{}">
         <div :class="$style.variations" v-for="[typeVariation, variationOptions] in Object.entries(variation)" :key="typeVariation">
             
             
@@ -42,9 +42,10 @@
     display: flex;
     flex-direction: row;
     gap: 5px;
+    margin-top: 8px;
+    margin-bottom: 15px;
 }
 .option {
-    margin-top: 8px;
     height: 45px;
     width: 45px;
     border-radius: 4px;
@@ -57,5 +58,16 @@
 .option img {
     width: 100%;
     height: 100%;
+}
+@media (max-width: 850px) {
+    .variation_option {
+        height: 65px;
+    }
+    .option {
+        display: flex;
+        height: 100%;
+        width: auto;
+        aspect-ratio: 1 / 1;
+    }
 }
 </style>

@@ -1,20 +1,30 @@
 <script setup lang="ts">
-    import { ref } from 'vue';
+    import { ref, watchEffect } from 'vue';
     import { getWidthOf } from '../../../utils/useElementWidth';
-    import { computed } from 'vue';
+    import { computed, watch } from 'vue';
+    import { useScreenWidth } from '../../../utils/useScreenWidth';
+    import emblaCarouselVue from 'embla-carousel-vue';
+    
+    const { screenWidth } = useScreenWidth();
+    const isVerticalScreen = computed(() => {return screenWidth.value <= 850})
     
     const props = defineProps<{
-        currentImage: number
+        scrollByVariation?: number
         productImages: string []
-        toggleCurrentImage: Function
     }>();
 
-    
+    const [emblaRef, emblaApi] = emblaCarouselVue({ loop: false })
+    const scrollTo = (index: number) => {
+        emblaApi.value?.scrollTo(index)
+    }
+    watch(() => props.scrollByVariation, (newValue) => {
+        if (newValue === undefined) return
+        emblaApi.value?.scrollTo(newValue)
+    })
 
     // Carousel Config
 
-    const carouselRef = ref(null);
-    const carouselWidth = getWidthOf(carouselRef)
+    const carouselWidth = getWidthOf(emblaRef)
 
     const valueScrollThumb = ref(0)
     const thumbRef = ref(null)
@@ -32,14 +42,19 @@
             valueScrollThumb.value = 0
         }
     }
+
+    watchEffect(() => {
+        console.log(carouselWidth.value)
+    })
 </script>
 
 <template>
-  <div :class="$style.product_images">
-        <div :class="$style.carousel_product_image" ref="carouselRef">
-
-            <div :class="$style.current_image" :style="{width: `${productImages.length * 100}%`, transform: `translateX(calc(${carouselWidth}px * -${currentImage}))`}">
-                <div v-for="imgPath in productImages">
+  <div :class="[$style.product_images, $style.embla]">
+        <div :class="[$style.embla__viewport]" ref="emblaRef">
+            <div :class="[$style.embla__container]">
+                <div v-for="(imgPath, index) in productImages" 
+                    :class="[$style.embla__slide]"
+                    :key="index">
                     <img :class="$style.carousel_image" :src="imgPath" >
                 </div>
             </div>
@@ -47,14 +62,15 @@
 
         <div :class="$style.viewport_thumb">
             <div :class="$style.thumbnail_images" ref="thumbRef">
-                <div :class="$style.thumb_image" v-for="(imagePath, imgIndex) in productImages" 
-                    @click="toggleCurrentImage(imgIndex)"
+                <div :class="$style.thumb_image" 
+                    v-for="(imagePath, imgIndex) in productImages" 
+                    @click="scrollTo(imgIndex)"
                     :style="{transform: `translateX(${valueScrollThumb}px)`}">
 
                     <img :src="imagePath" :alt="`${imgIndex}`" :loading="'lazy'">
                 </div>
             </div>
-            <div v-if="productImages.length > 6">
+            <div v-if="productImages.length > 6 && !isVerticalScreen">
                 <button :id="$style.next_button" @click="scrollThumb()" :style="valueScrollThumb ? {left: '-25px'} : {right: '-25px'}">
                     <svg 
                         viewBox="0 0 24 24" 
@@ -74,6 +90,24 @@
 </template>
 
 <style module>
+    /* Embla styles */
+    .embla__viewport {
+        overflow: hidden;
+    }
+    .embla__container {
+        display: flex;
+        touch-action: pan-y pinch-zoom;
+    }
+    .embla__slide {
+        flex: 0 0 100%;
+        min-width: 0;
+        cursor: grab;
+    }
+    .embla__slide:active {
+        cursor: grabbing;
+    }
+
+    
     .product_images {
         /* width: 700px; */
         /* height: 800px; */
@@ -92,13 +126,13 @@
         /* width: 650px; */
         overflow: hidden;
     }
-    .current_image {
+    /* .current_image {
         height: 100%;
         position: relative;
         display: flex;
         flex-direction: row;
         transition: transform 1s cubic-bezier(0.25, 0.8, 0.25, 1);
-    }
+    } */
     .carousel_image {
         width: 100%;
         height: 100%;
@@ -170,5 +204,31 @@
         transition: fill 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
         fill: currentColor;
         font-size: 1.5rem;
+    }
+    @media (max-width: 850px) {
+        .product_images {
+            width: 100%;
+            max-width: none;
+            height: fit-content;
+            aspect-ratio: auto;
+        }
+        .viewport_thumb {
+            aspect-ratio: auto;
+            padding-top: 15px;
+            padding-bottom: 10px;
+        }
+        .thumbnail_images {
+            overflow-x: auto;
+            overflow-y: hidden;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+        }
+        .thumbnail_images::-webkit-scrollbar {
+            display: none;
+        }
+        .thumb_image {
+            width: calc((100% - (3 * 10px)) / 4);
+            scroll-snap-align: start;
+        }
     }
 </style>

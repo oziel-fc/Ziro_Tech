@@ -84,7 +84,7 @@
     display: inline-block;
     color: #F2F3F4;
     font-size: 30px;
-    margin-bottom: 8px;
+    line-height: 1;
 }
 .shopee_button {
     background-color: #ee4d2d;
@@ -93,5 +93,9 @@
     margin-top: 10px;
     background-color: #6e0ad6;
 }
-
+@media (max-width: 850px) {
+    .buy_button {
+        margin-bottom: 10px;
+    }
+}
 </style>

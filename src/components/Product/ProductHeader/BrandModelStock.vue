@@ -81,4 +81,9 @@
         font-size: 22px;
     }
 }
+@media (max-width: 850px) {
+    #title {
+        font-size: 20px;
+    }
+}
 </style>
