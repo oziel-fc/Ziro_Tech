@@ -10,7 +10,7 @@
                 desktop: "/src/assets/carousel/phone_headset.webp",
                 mobile: "/src/assets/carousel/phone_headset_mobile.webp"
             },
-            link: "search/fone headset headphone",
+            link: "search/fone-headset-headphone",
             alt: "Banner dos Fones e Headsets"
         },
         {

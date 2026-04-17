@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import { ensureTrailingColon } from '../../../utils/utils';
-    import { inject, type Ref, computed } from 'vue';
+    import { computed } from 'vue';
     import { useScreenWidth } from '../../../utils/useScreenWidth';
 
     const props = defineProps<{
@@ -15,16 +15,13 @@
     const { screenWidth } = useScreenWidth()
     const isVerticalScreen = computed(() => {return screenWidth.value <= 850})
 
-    const mainContainer = inject<Ref<HTMLElement | null>>('mainContainer')
-
     const scrollToTop = () => {
-        if (!mainContainer) return
+        const root = document.getElementById('root')
 
-        mainContainer.value?.scrollTo({
+        root?.scrollTo({
             top: 0,
             behavior: 'smooth'
         })
-        console.log("Test")
     }
 
 </script>

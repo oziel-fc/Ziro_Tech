@@ -3,7 +3,7 @@
   import PageHeader from '../Header/PageHeader.vue';
   import { onMounted, watchEffect } from 'vue';
   import { loadData } from '../../utils/useProductStore';
-  import { ref, watch, nextTick, provide } from 'vue'
+  import { ref, watch, nextTick } from 'vue'
   import { useRoute } from 'vue-router'
   import PageFooter from '../Footer/PageFooter.vue';
 
@@ -36,8 +36,6 @@
       })
     }
   )
-
-  provide('mainContainer', mainContainer)
 
   watchEffect(() => {
     // console.log(scrollPositions)

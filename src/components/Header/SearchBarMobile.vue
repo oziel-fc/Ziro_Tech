@@ -2,13 +2,14 @@
     import { ref } from 'vue'
     import { useSearchStore } from '../../utils/useSearchStore'
     import { useRouter } from 'vue-router'
+    import { slugify } from '../../utils/utils'
 
     const router = useRouter()
     const searchStore = useSearchStore()
     const localSearch = ref('')
 
     const handleSearch = () => {
-        const search = localSearch.value.trim()
+        const search = slugify(localSearch.value)
 
         if (!search) return
 
