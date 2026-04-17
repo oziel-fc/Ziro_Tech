@@ -6,6 +6,7 @@
   import { ref, watch, nextTick } from 'vue'
   import { useRoute } from 'vue-router'
   import PageFooter from '../Footer/PageFooter.vue';
+import SideMenuMobile from '../Header/SideMenuMobile.vue';
 
   onMounted(() => {
     loadData()
@@ -47,6 +48,8 @@
     <main ref="mainContainer">
       <PageHeader />
 
+      <SideMenuMobile v-if="false"/>
+      
       <div class="content">
         <RouterView />
       </div>

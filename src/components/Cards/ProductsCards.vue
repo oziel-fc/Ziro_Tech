@@ -1,11 +1,12 @@
 <script setup lang="ts">
   import { useRoute } from 'vue-router';
   import CreateProductCard from './CreateProductCard.vue';
-  import { nextTick, watch} from 'vue';
+  import { computed, nextTick, watch, watchEffect} from 'vue';
   import { DataProducts, isLoading } from '../../utils/useProductStore';
   import { useSort } from '../../utils/currentSortType';
   import { useFilteredProducts } from '../../utils/useFilteredProducts';
-import NoResults from './NoResults.vue';
+  import NoResults from './NoResults.vue';
+import NoStock from './NoStock.vue';
 
   const route = useRoute()
   const { currentSortType } = useSort()
@@ -16,6 +17,17 @@ import NoResults from './NoResults.vue';
     DataProducts,
     currentSortType
   )
+
+  const isCategoryOrSub = computed(() => {
+    if (route.params.category) {
+      return true
+    }
+    if (route.params.subcategories) {
+      return true
+    }
+
+    return false
+  }) 
 
   // Verify the route
   watch(
@@ -32,6 +44,10 @@ import NoResults from './NoResults.vue';
     },
     { immediate: true }
   );
+
+  watchEffect(() => {
+    console.log(isCategoryOrSub.value)
+  })
 </script>
 
 <template>
@@ -51,7 +67,9 @@ import NoResults from './NoResults.vue';
         />
       </div>
 
-      <NoResults  v-if="filteredDataProducts.length <= 0 && !isLoading"/>
+      <NoResults  v-if="filteredDataProducts.length <= 0 && !isLoading && !isCategoryOrSub"/>
+
+      <NoStock v-if="filteredDataProducts.length <= 0 && !isLoading && isCategoryOrSub"/>
 
       <div :class="$style.loading" v-if="isLoading">
         <img src="../../assets/loading.apng" alt="Gif de Loading">

@@ -46,4 +46,9 @@
 #logo {
     height: 30px;
 }
+@media (max-width: 450px) {
+    #logo {
+        height: 26px;
+    }
+}
 </style>
