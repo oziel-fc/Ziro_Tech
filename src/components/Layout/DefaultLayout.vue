@@ -48,7 +48,7 @@ import SideMenuMobile from '../Header/SideMenuMobile.vue';
     <main ref="mainContainer">
       <PageHeader />
 
-      <SideMenuMobile v-if="false"/>
+      <SideMenuMobile v-if="true"/>
       
       <div class="content">
         <RouterView />
