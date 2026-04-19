@@ -2,11 +2,8 @@
   import descriptionCategories from '../../data/descriptionCategories';
   import { ref, watchEffect } from 'vue';
   import { slugify } from '../../utils/utils';
-
-  const isOpen = ref(true)
-  const toggleIsOpen = () => {
-    isOpen.value = !isOpen.value
-  }
+  import { isMenuOpen } from '../../utils/menuState';
+  import { toggleIsOpen } from '../../utils/menuState';
 
   const active = ref(null)
 
@@ -19,13 +16,13 @@
   }
   
   watchEffect(() => {
-    console.log('isOpen', isOpen.value)
+    console.log('isMenuOpen', isMenuOpen.value)
   })
 </script>
 
 
 <template>
-  <div :class="[$style.sideMenu, !isOpen && $style.close]">
+  <div :class="[$style.sideMenu, !isMenuOpen && $style.close]">
     <div :id="$style.topMenu">
       <RouterLink :to="'/'">
         <img src="../../../public/ziro_logo.png" alt="Logo do Menu Lateral">
@@ -65,20 +62,31 @@
         <div 
           v-if="active === item.category.name"
           :class="$style.listOfSubcategories"
-
         >
           <ul>
             <li 
               v-for="sub in item.subcategories"
               :key="sub.name"
               :class="$style.subcategory"
+              @click="toggleIsOpen()"
             >
-              <RouterLink :to="`/${slugify(item.category.name)}/${slugify(sub.name)}`">
+              <RouterLink :to="`/${slugify(item.category.name)}/${slugify(sub.name)}`"
+                :style="{textDecoration: 'none', color: 'inherit'}">
                 {{ sub.name }}
               </RouterLink>
             </li>
-            <li :class="$style.subcategory">
-              Ver Todos
+
+            <li :class="$style.subcategory"
+              @click="toggleIsOpen()"
+              :style="{
+                transform: active === item.category.name ? 'transformY(-100%)' : 'transformY(-100%)'
+              }">
+
+              <RouterLink :to="`/${slugify(item.category.name)}`"
+                :style="{textDecoration: 'none', color: 'inherit'}">
+                Ver Todos
+              </RouterLink>
+
             </li>
           </ul>
         </div>
@@ -110,7 +118,7 @@
   padding: 20px 10px 20px 20px;
 }
 #topMenu img {
-  height: 30px;
+  height: 26px;
 }
 #hLine {
   width: 100%;
@@ -145,5 +153,6 @@
 }
 .subcategory {
   padding: 8px 16px;
+  transition: 0.3s ease;
 }
 </style>
