@@ -20,14 +20,14 @@
     <RouterLink :to="`/p/${slugify(props.title)}`">
       <div :class="$style.product_card" :style="{width: sizeWidth || '', transform: `translateX(${transformXFunction}px)`}">
         <div :class="$style.product_img">
-          <img :src="img_path" :alt="props.title" :loading="'lazy'">
+          <img :src="props.img_path" :alt="props.title" :loading="'lazy'">
         </div>
         <div :class="$style.product_info">
           <span :id="$style.title">{{ props.title }}</span>
           <div :class="$style.price_stock">
-            <span :class="$style.price">{{ formatBRL(price) }}</span>
-            <span :class="$style.stock" v-if="showDisponibilityTag && stock === 0" :style="{backgroundColor: 'rgb(194, 40, 31)'}">INDISPONÍVEL</span>
-            <span :class="$style.stock" v-if="showDisponibilityTag && stock > 0" :style="{backgroundColor: 'green'}">DISPONÍVEL</span>
+            <span :class="$style.price">{{ formatBRL(props.price) }}</span>
+            <span :class="$style.stock" v-if="props.showDisponibilityTag && props.stock === 0" :style="{backgroundColor: 'rgb(194, 40, 31)'}">INDISPONÍVEL</span>
+            <span :class="$style.stock" v-if="props.showDisponibilityTag && props.stock > 0" :style="{backgroundColor: 'green'}">DISPONÍVEL</span>
           </div>
         </div>
       </div>        
