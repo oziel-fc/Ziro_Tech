@@ -4,31 +4,40 @@
     import { getWidthOf } from '../../utils/useElementWidth'
     import { useScreenWidth } from '../../utils/useScreenWidth'
 
+    import phoneHeadset from "../../assets/carousel/phone_headset.webp"
+    import phoneHeadsetMobile from "../../assets/carousel/phone_headset_mobile.webp"
+
+    import hardware from "../../assets/carousel/hardware.webp"
+    import hardwareMobile from "../../assets/carousel/hardware_mobile.webp"
+
+    import mouseKeyboard from "../../assets/carousel/mouse_keyboard.webp"
+    import mouseKeyboardMobile from "../../assets/carousel/mouse_keyboard_mobile.webp"
+
     const carouselItems = [
-        {
-            img: {
-                desktop: "../../assets/carousel/phone_headset.webp",
-                mobile: "../../assets/carousel/phone_headset_mobile.webp"
-            },
-            link: "search/fone-headset-headphone",
-            alt: "Banner dos Fones e Headsets"
+    {
+        img: {
+        desktop: phoneHeadset,
+        mobile: phoneHeadsetMobile
         },
-        {
-            img: {
-                desktop: "../../assets/carousel/hardware.webp",
-                mobile: "../../assets/carousel/hardware_mobile.webp"
-            },
-            link: "hardware",
-            alt: "Banner dos Hardwares"
+        link: "search/fone-headset-headphone",
+        alt: "Banner dos Fones e Headsets"
+    },
+    {
+        img: {
+        desktop: hardware,
+        mobile: hardwareMobile
         },
-        {
-            img: {
-                desktop: "../../assets/carousel/mouse_keyboard.webp",
-                mobile: "../../assets/carousel/mouse_keyboard_mobile.webp"
-            },
-            link: "search/mouse-teclado",
-            alt: "Banner dos Mouses e Teclados"
-        }
+        link: "hardware",
+        alt: "Banner dos Hardwares"
+    },
+    {
+        img: {
+        desktop: mouseKeyboard,
+        mobile: mouseKeyboardMobile
+        },
+        link: "search/mouse-teclado",
+        alt: "Banner dos Mouses e Teclados"
+    }
     ]
     
 
