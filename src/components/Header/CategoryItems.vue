@@ -9,7 +9,11 @@
     description: string | null
   }
 
-  const props = defineProps<{
+  const {
+    category,
+    subcategories,
+    index
+  } = defineProps<{
     category: string,
     subcategories: Subcategory[],
     index: number

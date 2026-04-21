@@ -8,23 +8,24 @@
     const { screenWidth } = useScreenWidth();
     const isVerticalScreen = computed(() => {return screenWidth.value <= 850})
     
-    const props = defineProps<{
+    const {
+        scrollByVariation,
+        productImages
+    } = defineProps<{
         scrollByVariation?: number
-        productImages: string []
+        productImages: string[]
     }>();
 
     const [emblaRef, emblaApi] = emblaCarouselVue({ loop: false })
     const scrollTo = (index: number) => {
         emblaApi.value?.scrollTo(index)
     }
-    watch(() => props.scrollByVariation, (newValue) => {
+    watch(() => scrollByVariation, (newValue) => {
         if (newValue === undefined) return
         emblaApi.value?.scrollTo(newValue)
     })
 
     // Carousel Config
-
-    const carouselWidth = getWidthOf(emblaRef)
 
     const valueScrollThumb = ref(0)
     const thumbRef = ref(null)
@@ -36,7 +37,7 @@
     const scrollThumb = () => {
 
         if (valueScrollThumb.value === 0) {
-            valueScrollThumb.value = ((props.productImages.length - 6) * widthThumbElement.value) * -1
+            valueScrollThumb.value = ((productImages.length - 6) * widthThumbElement.value) * -1
         }
         else {
             valueScrollThumb.value = 0

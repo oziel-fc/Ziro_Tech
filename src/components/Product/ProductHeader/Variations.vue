@@ -3,14 +3,21 @@
     import { computed } from 'vue';
     import { useScreenWidth } from '../../../utils/useScreenWidth';
 
-    const props = defineProps<{
-        variation: Object
+    const {
+        variation,
+        selectedVariation,
+        productImages,
+        variationImageIndexes,
+        toggleCurrentImage,
+        toggleSelectedVariation
+    } = defineProps<{
+        variation: Record<string, any>
         selectedVariation: number
         productImages: string[]
         variationImageIndexes: number[]
-        toggleCurrentImage: Function
-        toggleSelectedVariation: Function
-    }>();
+        toggleCurrentImage: (index: number) => void
+        toggleSelectedVariation: (index: number) => void
+    }>()
 
     const { screenWidth } = useScreenWidth()
     const isVerticalScreen = computed(() => {return screenWidth.value <= 850})

@@ -1,13 +1,20 @@
 <script setup lang="ts">
-  import { formatBRL, capitalize } from '../../../utils/utils';
+    import { formatBRL, capitalize } from '../../../utils/utils';
 
-  const props = defineProps<{
-    name: string
-    brand: string
-    model: string
-    stock: number
-    price: string
-  }>();
+    const {
+        name,
+        brand,
+        model,
+        stock,
+        price
+    } = defineProps<{
+        name: string
+        brand: string
+        model: string
+        stock: number
+        price: string
+    }>();
+
 </script>
 
 <template>

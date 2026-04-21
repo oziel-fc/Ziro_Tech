@@ -1,7 +1,10 @@
 <script setup lang='ts'>
     import { computed } from 'vue';
-import { useScreenWidth } from '../../../utils/useScreenWidth';
-    const props = defineProps<{
+    import { useScreenWidth } from '../../../utils/useScreenWidth';
+   
+    const {
+        specs
+    } = defineProps<{
         specs: string | string[]
     }>()
 
