@@ -7,24 +7,24 @@
     const carouselItems = [
         {
             img: {
-                desktop: "/src/assets/carousel/phone_headset.webp",
-                mobile: "/src/assets/carousel/phone_headset_mobile.webp"
+                desktop: "../../assets/carousel/phone_headset.webp",
+                mobile: "../../assets/carousel/phone_headset_mobile.webp"
             },
             link: "search/fone-headset-headphone",
             alt: "Banner dos Fones e Headsets"
         },
         {
             img: {
-                desktop: "/src/assets/carousel/hardware.webp",
-                mobile: "/src/assets/carousel/hardware_mobile.webp"
+                desktop: "../../assets/carousel/hardware.webp",
+                mobile: "../../assets/carousel/hardware_mobile.webp"
             },
             link: "hardware",
             alt: "Banner dos Hardwares"
         },
         {
             img: {
-                desktop: "/src/assets/carousel/mouse_keyboard.webp",
-                mobile: "/src/assets/carousel/mouse_keyboard_mobile.webp"
+                desktop: "../../assets/carousel/mouse_keyboard.webp",
+                mobile: "../../assets/carousel/mouse_keyboard_mobile.webp"
             },
             link: "search/mouse-teclado",
             alt: "Banner dos Mouses e Teclados"
