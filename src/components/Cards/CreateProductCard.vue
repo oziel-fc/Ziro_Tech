@@ -8,8 +8,6 @@
     img_path: string,
     price: string,
     stock: number,
-    sizeWidth?: string,
-    transformXFunction?: number,
     showDisponibilityTag?: boolean
   }>()
 
@@ -18,7 +16,7 @@
 <template>
   <div :class="$style.product">
     <RouterLink :to="`/p/${slugify(props.title)}`">
-      <div :class="$style.product_card" :style="{width: sizeWidth || '', transform: `translateX(${transformXFunction}px)`}">
+      <div :class="$style.product_card">
         <div :class="$style.product_img">
           <img :src="props.img_path" :alt="props.title" :loading="'lazy'">
         </div>
