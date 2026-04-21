@@ -16,7 +16,7 @@
   }
   
   watchEffect(() => {
-    console.log('isMenuOpen', isMenuOpen.value)
+    // console.log('isMenuOpen', isMenuOpen.value)
   })
 </script>
 
