@@ -1,6 +1,6 @@
 import { ref } from "vue"
 
-export const isMenuOpen = ref(true)
+export const isMenuOpen = ref(false)
 
 export const toggleIsOpen = () => {
   isMenuOpen.value = !isMenuOpen.value

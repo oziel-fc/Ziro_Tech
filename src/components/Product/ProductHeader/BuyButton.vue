@@ -93,9 +93,16 @@
     margin-top: 10px;
     background-color: #6e0ad6;
 }
+
+@media (max-width: 1024px) {
+    .buy_button:hover .viewport_elem_anim {
+        transform: none;
+    }
+}
 @media (max-width: 850px) {
     .buy_button {
         margin-bottom: 10px;
     }
+    
 }
 </style>

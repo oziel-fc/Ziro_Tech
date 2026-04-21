@@ -22,10 +22,22 @@
 
 
 <template>
+  
+  <!-- Overlay -->
+  <div 
+    v-if="isMenuOpen"
+    :class="$style.overlay"
+    @click="toggleIsOpen"
+  ></div>
+
+  <!-- Menu -->
   <div :class="[$style.sideMenu, !isMenuOpen && $style.close]">
     <div :id="$style.topMenu">
       <RouterLink :to="'/'">
-        <img src="../../../public/ziro_logo.png" alt="Logo do Menu Lateral">
+        <button
+          @click="toggleIsOpen()">
+          <img src="../../../public/ziro_logo.png" alt="Logo do Menu Lateral">
+        </button>
       </RouterLink>
       <button
         @click="toggleIsOpen()">
@@ -59,37 +71,39 @@
             }">
         </div>
 
-        <div 
-          v-if="active === item.category.name"
-          :class="$style.listOfSubcategories"
-        >
-          <ul>
-            <li 
-              v-for="sub in item.subcategories"
-              :key="sub.name"
-              :class="$style.subcategory"
-              @click="toggleIsOpen()"
-            >
-              <RouterLink :to="`/${slugify(item.category.name)}/${slugify(sub.name)}`"
-                :style="{textDecoration: 'none', color: 'inherit'}">
-                {{ sub.name }}
-              </RouterLink>
-            </li>
+        <transition name="slide">
 
-            <li :class="$style.subcategory"
-              @click="toggleIsOpen()"
-              :style="{
-                transform: active === item.category.name ? 'transformY(-100%)' : 'transformY(-100%)'
-              }">
+          <div 
+            v-if="active === item.category.name"
+            :class="$style.listOfSubcategories"
+          >
+            <ul>
+              <li 
+                v-for="sub in item.subcategories"
+                :key="sub.name"
+                :class="$style.subcategory"
+                @click="toggleIsOpen()"
+              >
+                <RouterLink :to="`/${slugify(item.category.name)}/${slugify(sub.name)}`"
+                  :style="{textDecoration: 'none', color: 'inherit'}">
+                  {{ sub.name }}
+                </RouterLink>
+              </li>
 
-              <RouterLink :to="`/${slugify(item.category.name)}`"
-                :style="{textDecoration: 'none', color: 'inherit'}">
-                Ver Todos
-              </RouterLink>
+              <li :class="$style.subcategory"
+                @click="toggleIsOpen()">
 
-            </li>
-          </ul>
-        </div>
+                <RouterLink :to="`/${slugify(item.category.name)}`"
+                  :style="{textDecoration: 'none', color: 'inherit'}">
+                  Ver Todos
+                </RouterLink>
+
+              </li>
+            </ul>
+          </div>
+
+        </transition>
+
       </li>
     </ul>
   </div>
@@ -97,6 +111,31 @@
 
 
 <style module>
+
+:global(.slide-enter-active),
+:global(.slide-leave-active) {
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+:global(.slide-enter-from),
+:global(.slide-leave-to) {
+  max-height: 0;
+  opacity: 0;
+}
+:global(.slide-enter-to),
+:global(.slide-leave-from) {
+  max-height: 400px;
+  opacity: 1;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(2px);
+  z-index: 1000;
+}
+
 .sideMenu {
   height: 100vh;
   z-index: 1001;
@@ -153,6 +192,5 @@
 }
 .subcategory {
   padding: 8px 16px;
-  transition: 0.3s ease;
 }
 </style>
