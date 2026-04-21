@@ -29,11 +29,11 @@
             <div v-if="props.olx" :class="[$style.buy_button, $style.olx_button]">
                 <a :href="props.olx_link" :class="$style.viewport_elem_anim" target="_blank" rel="noopener noreferrer">
                     <div :class="$style.left_elem_anim">
-                        <img src="../../assets/shopping_cart.png" alt="Shopping Cart" :style="{height: '35px', marginLeft: '5px'}">
+                        <img src="../../../assets/shopping_cart.png" alt="Shopping Cart" :style="{height: '35px', marginLeft: '5px'}">
                         <span>Comprar</span>
                     </div>
                     <div :class="$style.right_elem_anim">
-                        <img src="../../assets/olx.png" alt="OLX Icon" :style="{height: '35px'}">
+                        <img src="../../../assets/olx.png" alt="OLX Icon" :style="{height: '35px'}">
                         <span>Olx</span>
                     </div>
                 </a>
