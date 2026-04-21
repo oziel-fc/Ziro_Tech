@@ -3,11 +3,21 @@
   import { slugify } from '../../utils/utils';
   import { formatBRL } from '../../utils/utils';
 
-  const props = defineProps<{
+  const {
+    title,
+    img_path,
+    price,
+    stock,
+    sizeWidth,
+    transformXFunction,
+    showDisponibilityTag
+  } = defineProps<{
     title: string,
     img_path: string,
     price: string,
     stock: number,
+    sizeWidth?: string,
+    transformXFunction?: number,
     showDisponibilityTag?: boolean
   }>()
 
@@ -15,17 +25,17 @@
 
 <template>
   <div :class="$style.product">
-    <RouterLink :to="`/p/${slugify(props.title)}`">
-      <div :class="$style.product_card">
+    <RouterLink :to="`/p/${slugify(title)}`">
+      <div :class="$style.product_card" :style="{width: sizeWidth || '', transform: `translateX(${transformXFunction}px)`}">
         <div :class="$style.product_img">
-          <img :src="props.img_path" :alt="props.title" :loading="'lazy'">
+          <img :src="img_path" :alt="title" :loading="'lazy'">
         </div>
         <div :class="$style.product_info">
-          <span :id="$style.title">{{ props.title }}</span>
+          <span :id="$style.title">{{ title }}</span>
           <div :class="$style.price_stock">
-            <span :class="$style.price">{{ formatBRL(props.price) }}</span>
-            <span :class="$style.stock" v-if="props.showDisponibilityTag && props.stock === 0" :style="{backgroundColor: 'rgb(194, 40, 31)'}">INDISPONÍVEL</span>
-            <span :class="$style.stock" v-if="props.showDisponibilityTag && props.stock > 0" :style="{backgroundColor: 'green'}">DISPONÍVEL</span>
+            <span :class="$style.price">{{ formatBRL(price) }}</span>
+            <span :class="$style.stock" v-if="showDisponibilityTag && stock === 0" :style="{backgroundColor: 'rgb(194, 40, 31)'}">INDISPONÍVEL</span>
+            <span :class="$style.stock" v-if="showDisponibilityTag && stock > 0" :style="{backgroundColor: 'green'}">DISPONÍVEL</span>
           </div>
         </div>
       </div>        
