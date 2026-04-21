@@ -17,13 +17,13 @@
 
 <template>
   <div :class="$style.product">
-    <RouterLink :to="`/p/${slugify(title)}`">
+    <RouterLink :to="`/p/${slugify(props.title)}`">
       <div :class="$style.product_card" :style="{width: sizeWidth || '', transform: `translateX(${transformXFunction}px)`}">
         <div :class="$style.product_img">
-          <img :src="img_path" :alt="title" :loading="'lazy'">
+          <img :src="img_path" :alt="props.title" :loading="'lazy'">
         </div>
         <div :class="$style.product_info">
-          <span :id="$style.title">{{ title }}</span>
+          <span :id="$style.title">{{ props.title }}</span>
           <div :class="$style.price_stock">
             <span :class="$style.price">{{ formatBRL(price) }}</span>
             <span :class="$style.stock" v-if="showDisponibilityTag && stock === 0" :style="{backgroundColor: 'rgb(194, 40, 31)'}">INDISPONÍVEL</span>
