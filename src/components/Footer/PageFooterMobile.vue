@@ -70,6 +70,7 @@
     color: #868686;
     font-size: 14px;
     text-align: justify;
+    hyphens: auto;
 }
 .contacts {
     display: flex;
