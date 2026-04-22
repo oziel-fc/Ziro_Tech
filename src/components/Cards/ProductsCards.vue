@@ -46,7 +46,7 @@ import NoStock from './NoStock.vue';
   );
 
   watchEffect(() => {
-    console.log(isCategoryOrSub.value)
+    // console.log(isCategoryOrSub.value)
   })
 </script>
 

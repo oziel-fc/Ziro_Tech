@@ -85,7 +85,7 @@
                 @click="toggleIsOpen()"
               >
                 <RouterLink :to="`/${slugify(item.category.name)}/${slugify(sub.name)}`"
-                  :style="{textDecoration: 'none', color: 'inherit'}">
+                  :style="{textDecoration: 'none', color: 'inherit', flex: '1 0 0%'}">
                   {{ sub.name }}
                 </RouterLink>
               </li>
@@ -94,7 +94,7 @@
                 @click="toggleIsOpen()">
 
                 <RouterLink :to="`/${slugify(item.category.name)}`"
-                  :style="{textDecoration: 'none', color: 'inherit'}">
+                  :style="{textDecoration: 'none', color: 'inherit', flex: '1 0 0%'}">
                   Ver Todos
                 </RouterLink>
 
@@ -132,7 +132,6 @@
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.35);
-  backdrop-filter: blur(2px);
   z-index: 1000;
 }
 
@@ -183,6 +182,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
 }
 .category {
   padding: 8px 16px;
@@ -191,6 +191,7 @@
   height: 20px;
 }
 .subcategory {
+  display: flex;
   padding: 8px 16px;
 }
 </style>
